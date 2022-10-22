@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:interactive/src/main.dart';
 import 'package:interactive/src/parser.dart';
+import 'package:interactive/src/utils.dart';
 import 'package:interactive/src/vm_service_wrapper.dart';
 import 'package:interactive/src/workspace_code.dart';
 import 'package:interactive/src/workspace_isolate.dart';
@@ -47,7 +48,7 @@ class Executor {
   static const _kExecuteShellPrefix = '!';
 
   Future<void> _executeShell(String rawInput) async {
-    TODO;
+    await executeProcess(rawInput, workingDirectory: executionWorkspaceDir);
   }
 
   Future<void> _executeCode(String rawInput) async {
