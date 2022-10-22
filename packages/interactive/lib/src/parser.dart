@@ -156,12 +156,31 @@ class _PotentialAccessorVisitor extends GeneralizingAstVisitor<void> {
 
   @override
   void visitExpression(Expression node) {
-    log.warning(
-        'expression of type ${node.runtimeType} not implemented yet (should be quite trivial), please raise issue or PR. node=$node');
+    log.warning('expression of type ${node.runtimeType} not implemented yet '
+        '(should be quite trivial - not implemented simply because I never see it in tests), '
+        'please raise issue or PR. node=$node');
+  }
+
+  @override
+  void visitBinaryExpression(BinaryExpression node) {
+    _visitPotentialAccessor(node.leftOperand);
+    _visitPotentialAccessor(node.rightOperand);
+  }
+
+  @override
+  void visitAssignmentExpression(AssignmentExpression node) {
+    _visitPotentialAccessor(node.leftHandSide);
+    _visitPotentialAccessor(node.rightHandSide);
   }
 
   @override
   void visitPostfixExpression(PostfixExpression node) {
-    TODO;
+    _visitPotentialAccessor(node.operand);
+  }
+
+  void _visitPotentialAccessor(Expression node) {
+    if (node is SimpleIdentifier) {
+      potentialAccessors.add(node.name);
+    }
   }
 }
