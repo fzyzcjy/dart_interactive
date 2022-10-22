@@ -113,11 +113,12 @@ void main() {
     () => _body(
       inputs: [
         'a = 1;',
-        'class C { void f() => a++; }',
+        r'class C { void f() => $.a++; }',
         'C().f()',
         'a',
       ],
       expectOutputs: [
+        '1',
         '2',
       ],
     ),
