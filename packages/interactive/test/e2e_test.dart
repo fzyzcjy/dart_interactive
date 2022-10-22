@@ -97,11 +97,12 @@ void main() {
     () => _body(
       inputs: [
         'a = 1;',
-        'void f() => a++;',
+        'int f() => a++;',
         'f()',
         'a',
       ],
       expectOutputs: [
+        '1',
         '2',
       ],
     ),
