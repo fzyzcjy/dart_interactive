@@ -1,6 +1,8 @@
+import 'package:logging/logging.dart';
+
 class WorkspaceCode {
   final Set<String> imports;
-  final Map<String, String> classMap;
+  final Map<String, ClassInfo> classMap;
   final Map<String, String> functionMap;
   final Map<String, String> miscDeclarationMap;
   final String generatedMethodCodeBlock;
@@ -49,7 +51,7 @@ export 'workspace.dart';
 
 ${imports.join('\n')}
 
-${classMap.values.join('\n\n')}
+${classMap.values.map((e) => e.generate()).join('\n\n')}
 
 ${miscDeclarationMap.values.join('\n\n')}
 
@@ -83,4 +85,42 @@ class DeclarationKey {
 
   @override
   String toString() => 'DeclarationKey($type, $identifier)';
+}
+
+class ClassInfo {
+  static final log = Logger('ClassInfo');
+
+  final String rawCode;
+  final List<String> potentialAccessors;
+
+  ClassInfo({
+    required this.rawCode,
+    required this.potentialAccessors,
+  });
+
+  String generate() {
+    const kEnding = '}';
+
+    if (!rawCode.endsWith(kEnding)) {
+      log.info(
+          'generateClass skip since not endsWidth "$kEnding" (rawCode=$rawCode)');
+      return rawCode;
+    }
+
+    final accessorCodes =
+        potentialAccessors.map(_generateAccessorCode).join('\n');
+
+    final replacedEnding = '$accessorCodes\n\n'
+        'dynamic noSuchMethod(Invocation invocation) => synthesizedClassNoSuchMethod(invocation);\n'
+        '}';
+
+    return rawCode.substring(0, rawCode.length - kEnding.length) +
+        replacedEnding;
+  }
+
+  static String _generateAccessorCode(String name) {
+    return '''
+dynamic get $name => noSuchMethod(Invocation.getter(#$name));
+set $name(dynamic value) => noSuchMethod(Invocation.setter(#$name, value));''';
+  }
 }
