@@ -17,20 +17,20 @@ Future<void> main() async {
       await ExecutionWorkspaceManager.create(vm, executionWorkspaceDir);
   final workspaceCode = WorkspaceCode();
 
-  // final reader = ReplReader();
+  final reader = ReplReader();
 
-  final reader = TestReader([
-    'a = 10;',
-    'print(a);',
-    'class C { int a = 10; void f() => print("I am f, a=\$a"); }',
-    'c = C(); c.f();',
-    'class C { int a = 10; void f() => print("I am NEW f, a=\$a"); }',
-    'c.f();',
-    'void func() { print("old func"); }',
-    'func();',
-    'void func() { print("NEW func"); }',
-    'func();',
-  ]);
+  // final reader = TestReader([
+  //   'a = 10;',
+  //   'print(a);',
+  //   'class C { int a = 10; void f() => print("I am f, a=\$a"); }',
+  //   'c = C(); c.f();',
+  //   'class C { int a = 10; void f() => print("I am NEW f, a=\$a"); }',
+  //   'c.f();',
+  //   'void func() { print("old func"); }',
+  //   'func();',
+  //   'void func() { print("NEW func"); }',
+  //   'func();',
+  // ]);
 
   try {
     await reader.run((input) =>
