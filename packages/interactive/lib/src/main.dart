@@ -1,10 +1,41 @@
+import 'dart:io';
+
+import 'package:analyzer/dart/ast/ast.dart';
 import 'package:interactive/src/code_generator.dart';
 import 'package:interactive/src/execution_workspace_manager.dart';
+import 'package:interactive/src/parser.dart';
 import 'package:interactive/src/reader.dart';
 import 'package:interactive/src/vm_service_wrapper.dart';
 import 'package:vm_service/vm_service.dart';
 
 Future<void> main() async {
+  print('start tryParse');
+  final code = '''
+    class C {
+      void f() => print(42);
+    }
+    
+    void g() => print(100);
+    ''';
+  tryParse<AstNode>(
+    code,
+    (parser, token) {
+      print('start real parse');
+      final compilationUnit = parser.parseCompilationUnit(token);
+      print('$compilationUnit');
+
+      for (final declaration in compilationUnit.declarations) {
+        if (declaration is ClassDeclaration) {
+          print(
+              'hi $declaration code is ${code.substring(declaration.offset, declaration.end)}');
+        }
+      }
+
+      return compilationUnit;
+    },
+  );
+  exit(0);
+
   // TODO should dynamically generate
   const executionWorkspaceDir =
       '/Users/tom/RefCode/dart_interactive/packages/execution_workspace';

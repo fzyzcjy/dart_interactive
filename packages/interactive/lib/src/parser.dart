@@ -25,7 +25,7 @@ T? tryParse<T extends AstNode>(String code, ParserClosure<T> parse) {
   final token = scanner.tokenize();
   final parser = Parser(StringSource(code, ''), errorListener,
       featureSet: featureSet, lineInfo: LineInfo.fromContent(code));
- 
+
   final result = parse(parser, token);
 
   if (errorListener.errorReported ||
