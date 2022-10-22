@@ -8,8 +8,6 @@ environment:
 dependencies:
   interactive:
     path: ../interactive
-  # example 3rd party lib
-  path: ^1.8.2
 
 dev_dependencies:
 
