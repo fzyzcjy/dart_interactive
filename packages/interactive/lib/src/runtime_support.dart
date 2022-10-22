@@ -10,8 +10,8 @@ class InteractiveRuntimeContext {
 
   @override
   Object? noSuchMethod(Invocation invocation) {
-    print(
-        'InteractiveRuntimeContext.noSuchMethod memberName=${invocation.memberName} positionalArguments=${invocation.positionalArguments} namedArguments=${invocation.namedArguments}');
+    // print(
+    //     'InteractiveRuntimeContext.noSuchMethod memberName=${invocation.memberName} positionalArguments=${invocation.positionalArguments} namedArguments=${invocation.namedArguments}');
 
     if (invocation.isGetter && _fieldMap.containsKey(invocation.memberName)) {
       return _fieldMap[invocation.memberName];

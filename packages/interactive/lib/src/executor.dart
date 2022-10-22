@@ -5,9 +5,12 @@ import 'package:interactive/src/parser.dart';
 import 'package:interactive/src/vm_service_wrapper.dart';
 import 'package:interactive/src/workspace_code.dart';
 import 'package:interactive/src/workspace_isolate.dart';
+import 'package:logging/logging.dart';
 import 'package:vm_service/vm_service.dart';
 
 class Executor {
+  final log = Logger('Executor');
+
   static const _evaluateCode = 'interactiveRuntimeContext.generatedMethod()';
 
   final VmServiceWrapper vm;
@@ -32,22 +35,23 @@ class Executor {
   Future<void> execute(
     String rawInput,
   ) async {
-    print('Phase: Parse');
+    log.info('Phase: Parse');
     InputParser.parseAndApply(rawInput, workspaceCode);
 
-    print('Phase: Generate');
+    log.info('Phase: Generate');
     File('$executionWorkspaceDir/lib/auto_generated.dart')
         .writeAsStringSync(workspaceCode.generate());
 
-    print('Phase: ReloadSources');
+    log.info('Phase: ReloadSources');
     final report =
         await vm.vmService.reloadSources(executionWorkspaceManager.isolateId);
     if (report.success != true) {
-      print('Error: Hot reload failed, maybe because code has syntax error?');
+      log.warning(
+          'Error: Hot reload failed, maybe because code has syntax error?');
       return;
     }
 
-    print('Phase: Evaluate');
+    log.info('Phase: Evaluate');
     final isolateInfo = await executionWorkspaceManager.isolateInfo;
     final targetId = isolateInfo.rootLib!.id!;
     final response = await vm.vmService
@@ -63,9 +67,9 @@ class Executor {
         print(value);
       }
     } else if (response is ErrorRef) {
-      print('Error: $response');
+      log.warning('Error: $response');
     } else {
-      print('Unknown error (response: $response)');
+      log.warning('Unknown error (response: $response)');
     }
   }
 }

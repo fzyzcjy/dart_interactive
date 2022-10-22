@@ -2,6 +2,7 @@ import 'dart:isolate';
 
 import 'package:interactive/src/vm_service_wrapper.dart';
 import 'package:collection/collection.dart';
+import 'package:logging/logging.dart';
 import 'package:vm_service/vm_service.dart' as vm_service;
 
 class WorkspaceIsolate {
@@ -43,11 +44,13 @@ extension on VmServiceWrapper {
 
 // ref: [Isolate.run]
 Future<Isolate> _spawnUriWithErrorHandling(Uri uri) async {
+  final log = Logger('SpawnUriWithErrorHandling');
+
   final errorPort = RawReceivePort()
-    ..handler = (Object? message) => print('Isolate error: $message');
+    ..handler = (Object? message) => log.warning('Isolate error: $message');
   final exitPort = RawReceivePort()
     ..handler =
-        (Object? message) => print('Isolate exited (message: $message)');
+        (Object? message) => log.warning('Isolate exited (message: $message)');
 
   return await Isolate.spawnUri(
     uri,

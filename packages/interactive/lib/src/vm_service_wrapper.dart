@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:logging/logging.dart';
 import 'package:vm_service/utils.dart';
 import 'package:vm_service/vm_service.dart';
 import 'package:vm_service/vm_service_io.dart';
@@ -31,9 +32,11 @@ class VmServiceWrapper {
 }
 
 class _Log extends Log {
-  @override
-  void warning(String message) => print('VMService warning: $message');
+  final log = Logger('VmServiceLogger');
 
   @override
-  void severe(String message) => print('VMService severe: $message');
+  void warning(String message) => log.warning(message);
+
+  @override
+  void severe(String message) => log.warning(message);
 }

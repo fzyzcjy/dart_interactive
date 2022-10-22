@@ -11,8 +11,11 @@ import 'package:analyzer/src/dart/scanner/scanner.dart';
 import 'package:analyzer/src/generated/parser.dart';
 import 'package:analyzer/src/string_source.dart';
 import 'package:interactive/src/workspace_code.dart';
+import 'package:logging/logging.dart';
 
 class InputParser {
+  static final log = Logger('InputParser');
+
   static void parseAndApply(String rawCode, WorkspaceCode target) {
     final compilationUnit = _tryParse(
         rawCode, (parser, token) => parser.parseCompilationUnit(token));
@@ -20,7 +23,7 @@ class InputParser {
       for (final declaration in compilationUnit.declarations) {
         final key =
             DeclarationKey(declaration.runtimeType, declaration.identifier);
-        print('parseAndApply handle class $key');
+        log.info('parseAndApply handle class $key');
         target.declarationMap[key] = declaration.getCode(rawCode);
       }
 
@@ -61,10 +64,12 @@ T? _tryParse<T extends AstNode>(String code, ParserClosure<T> parse) {
 
 // TODO change to gather it etc
 class _LoggingErrorListener extends BooleanErrorListener {
+  final log = Logger('LoggingErrorListener');
+
   @override
   void onError(AnalysisError error) {
     super.onError(error);
-    print('Error when parsing: $error');
+    log.info('Error when parsing: $error');
   }
 }
 
