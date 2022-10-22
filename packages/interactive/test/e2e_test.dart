@@ -71,6 +71,38 @@ void main() {
   );
 
   test(
+    'class extends class',
+    () => _body(
+      inputs: [
+        'class A { int f() => 10; } class B extends A { int f() => 20; }',
+        'A().f() + B().f()',
+        'class A { int f() => 100; }',
+        'A().f() + B().f()',
+      ],
+      expectOutputs: [
+        '30',
+        '120',
+      ],
+    ),
+  );
+
+  test(
+    'class implements class',
+    () => _body(
+      inputs: [
+        'class A { int f() => 10; } class B implements A { int f() => 20; }',
+        'A().f() + B().f()',
+        'class A { int f() => 100; }',
+        'A().f() + B().f()',
+      ],
+      expectOutputs: [
+        '30',
+        '120',
+      ],
+    ),
+  );
+
+  test(
     'imports',
     () => _body(
       inputs: [
@@ -113,6 +145,7 @@ void main() {
     () => _body(
       inputs: [
         'a = 1;',
+        // TODO "$." to be removed
         r'class C { int f() => $.a++; }',
         'C().f()',
         'a',
