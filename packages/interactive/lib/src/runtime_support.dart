@@ -1,6 +1,9 @@
+const kRuntimeSupportImport = '''
 import 'dart:mirrors';
+''';
 
-Future<void> executionWorkspaceMain() async =>
+const kRuntimeSupportCode = r'''
+Future<void> main() async =>
     await Future<void>.delayed(const Duration(days: 1000));
 
 class InteractiveRuntimeContext {
@@ -36,3 +39,4 @@ final interactiveRuntimeContext = InteractiveRuntimeContext();
 
 dynamic synthesizedClassNoSuchMethod(Invocation invocation) =>
     interactiveRuntimeContext.noSuchMethod(invocation);
+''';

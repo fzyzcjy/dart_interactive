@@ -1,3 +1,4 @@
+import 'package:interactive/src/runtime_support.dart';
 import 'package:logging/logging.dart';
 
 class WorkspaceCode {
@@ -46,8 +47,9 @@ class WorkspaceCode {
 
 import 'package:interactive/src/runtime_support.dart';
 ${imports.join('\n')}
+$kRuntimeSupportImport
 
-void main() => executionWorkspaceMain();
+$kRuntimeSupportCode
 
 ${classMap.values.map((e) => e.generate()).join('\n\n')}
 
