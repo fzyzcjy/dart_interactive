@@ -28,13 +28,21 @@ class InputParser {
         return null;
       }
 
-      final declarationMap =
-          Map.fromEntries(compilationUnit.declarations.map((declaration) {
-        final key =
-            DeclarationKey(declaration.runtimeType, declaration.identifier);
-        log.info('parseAndApply handle class $key');
-        return MapEntry(key, declaration.getCode(rawCode));
-      }));
+      final classMap = <String, String>{};
+      final functionMap = <String, String>{};
+      final miscDeclarationMap = <String, String>{};
+      for (final declaration in compilationUnit.declarations) {
+        final Map<String, String> interestMap;
+        if (declaration is ClassDeclaration) {
+          interestMap = classMap;
+        } else if (declaration is FunctionDeclaration) {
+          interestMap = functionMap;
+        } else {
+          interestMap = miscDeclarationMap;
+        }
+
+        interestMap[declaration.identifier] = declaration.getCode(rawCode);
+      }
 
       final imports = compilationUnit.directives
           .whereType<ImportDirective>()
@@ -42,7 +50,9 @@ class InputParser {
           .toSet();
 
       return WorkspaceCode(
-        declarationMap: declarationMap,
+        classMap: classMap,
+        functionMap: functionMap,
+        miscDeclarationMap: miscDeclarationMap,
         imports: imports,
         generatedMethodCodeBlock: '',
       );
@@ -51,17 +61,13 @@ class InputParser {
     final expression =
         _tryParse(rawCode, (parser, token) => parser.parseExpression(token));
     if (expression != null) {
-      return WorkspaceCode(
-        declarationMap: const {},
-        imports: const {},
+      return WorkspaceCode.codeBlock(
         generatedMethodCodeBlock: 'return ($rawCode);',
       );
     }
 
     // fallback as raw code
-    return WorkspaceCode(
-      declarationMap: const {},
-      imports: const {},
+    return WorkspaceCode.codeBlock(
       generatedMethodCodeBlock: rawCode,
     );
   }
@@ -111,7 +117,7 @@ extension on AstNode {
 extension on CompilationUnitMember {
   String get identifier {
     final that = this;
-    if (that is NamedCompilationUnitMember) return that.name.toString();
+    if (that is NamedCompilationUnitMember) return '$runtimeType#${that.name}';
     throw UnimplementedError(
         'Not implemented identifier for $runtimeType yet, please make a PR');
   }

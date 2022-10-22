@@ -1,22 +1,40 @@
 class WorkspaceCode {
   final Set<String> imports;
-  final Map<DeclarationKey, String> declarationMap;
+  final Map<String, String> classMap;
+  final Map<String, String> functionMap;
+  final Map<String, String> miscDeclarationMap;
   final String generatedMethodCodeBlock;
 
   const WorkspaceCode({
     required this.imports,
-    required this.declarationMap,
+    required this.classMap,
+    required this.functionMap,
+    required this.miscDeclarationMap,
     required this.generatedMethodCodeBlock,
   });
 
+  const WorkspaceCode.codeBlock({
+    required this.generatedMethodCodeBlock,
+  })  : imports = const {},
+        classMap = const {},
+        functionMap = const {},
+        miscDeclarationMap = const {};
+
   const WorkspaceCode.empty()
       : imports = const {},
-        declarationMap = const {},
+        classMap = const {},
+        functionMap = const {},
+        miscDeclarationMap = const {},
         generatedMethodCodeBlock = '';
 
   WorkspaceCode merge(WorkspaceCode other) => WorkspaceCode(
         imports: {...imports, ...other.imports},
-        declarationMap: {...declarationMap, ...other.declarationMap},
+        classMap: {...classMap, ...other.classMap},
+        functionMap: {...functionMap, ...other.functionMap},
+        miscDeclarationMap: {
+          ...miscDeclarationMap,
+          ...other.miscDeclarationMap
+        },
         generatedMethodCodeBlock: other.generatedMethodCodeBlock,
       );
 
@@ -29,7 +47,11 @@ export 'workspace.dart';
 
 ${imports.join('\n')}
 
-${declarationMap.values.join('\n\n')}
+${classMap.values.join('\n\n')}
+
+${functionMap.values.join('\n\n')}
+
+${miscDeclarationMap.values.join('\n\n')}
 
 extension ExtDynamic on dynamic {
   Object? generatedMethod() {
