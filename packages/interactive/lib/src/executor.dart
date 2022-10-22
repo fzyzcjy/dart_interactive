@@ -14,23 +14,26 @@ class Executor {
 
   static const _evaluateCode = 'interactiveRuntimeContext.generatedMethod()';
 
+  final String executionWorkspaceDir;
   final Writer writer;
   final VmServiceWrapper vm;
   final WorkspaceIsolate workspaceIsolate;
   var workspaceCode = const WorkspaceCode.empty();
   final inputParser = InputParser();
 
-  Executor._(this.vm, this.workspaceIsolate, this.writer);
+  Executor._(
+      this.vm, this.workspaceIsolate, this.writer, this.executionWorkspaceDir);
 
-  static Future<Executor> create(Writer writer) async {
+  static Future<Executor> create(Writer writer,
+      {required String executionWorkspaceDir}) async {
     // reset to avoid syntax error etc
-    _writeWorkspaceCode(const WorkspaceCode.empty());
+    _writeWorkspaceCode(const WorkspaceCode.empty(), executionWorkspaceDir);
 
     final vm = await VmServiceWrapper.create();
     final workspaceIsolate =
         await WorkspaceIsolate.create(vm, executionWorkspaceDir);
 
-    return Executor._(vm, workspaceIsolate, writer);
+    return Executor._(vm, workspaceIsolate, writer, executionWorkspaceDir);
   }
 
   void dispose() {
@@ -66,7 +69,7 @@ class Executor {
     workspaceCode = workspaceCode.merge(parsedInput);
 
     log.info('Phase: Write');
-    _writeWorkspaceCode(workspaceCode);
+    _writeWorkspaceCode(workspaceCode, executionWorkspaceDir);
 
     log.info('Phase: ReloadSources');
     final report = await vm.vmService.reloadSources(workspaceIsolate.isolateId);
@@ -98,7 +101,8 @@ class Executor {
     }
   }
 
-  static void _writeWorkspaceCode(WorkspaceCode workspaceCode) {
+  static void _writeWorkspaceCode(
+      WorkspaceCode workspaceCode, String executionWorkspaceDir) {
     final generatedCode = workspaceCode.generate();
     File('$executionWorkspaceDir/lib/auto_generated.dart')
         .writeAsStringSync(generatedCode);
