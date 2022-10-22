@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:args/args.dart';
 import 'package:cli_repl/cli_repl.dart';
 import 'package:interactive/src/executor.dart';
@@ -6,15 +8,36 @@ import 'package:interactive/src/workspace_file_tree.dart';
 import 'package:logging/logging.dart';
 
 Future<void> main(List<String> args) {
-  final parsedArgs = (ArgParser() //
-        ..addFlag('verbose', defaultsTo: false))
-      .parse(args);
+  final parsedArgs = _parseArgs(args);
 
   return run(
     reader: createReader(),
     writer: print,
     verbose: parsedArgs['verbose'] as bool,
   );
+}
+
+ArgResults _parseArgs(List<String> args) {
+  final parser = ArgParser()
+    ..addFlag('verbose', defaultsTo: false, help: 'More logging')
+    ..addFlag('help', defaultsTo: false, help: 'Show help message');
+
+  String usage() => 'Arguments:\n${parser.usage}';
+
+  final ArgResults parsedArgs;
+  try {
+    parsedArgs = parser.parse(args);
+  } on Exception {
+    print(usage());
+    rethrow;
+  }
+
+  if (parsedArgs['help'] as bool) {
+    print(usage());
+    exit(0);
+  }
+
+  return parsedArgs;
 }
 
 typedef Reader = Iterable<String> Function();
