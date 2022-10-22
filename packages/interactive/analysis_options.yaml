@@ -45,3 +45,4 @@ linter:
     prefer_if_elements_to_conditional_expressions: false
     use_late_for_private_fields_and_variables: false
     unnecessary_await_in_return: false
+    avoid_print: false
