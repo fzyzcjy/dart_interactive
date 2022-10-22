@@ -18,7 +18,7 @@ class WorkspaceIsolate {
 
   static Future<WorkspaceIsolate> create(
       VmServiceWrapper vm, String executionWorkspaceDir) async {
-    final path = '$executionWorkspaceDir/lib/main.dart';
+    final path = '$executionWorkspaceDir/lib/auto_generated.dart';
 
     final isolateIdsBefore = await vm.getIsolateIds();
 

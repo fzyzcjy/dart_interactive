@@ -45,8 +45,9 @@ class WorkspaceCode {
 // AUTO-GENERATED, PLEASE DO NOT MODIFY BY HAND
 
 import 'package:interactive/src/runtime_support.dart';
-
 ${imports.join('\n')}
+
+void main() => executionWorkspaceMain();
 
 ${classMap.values.map((e) => e.generate()).join('\n\n')}
 
