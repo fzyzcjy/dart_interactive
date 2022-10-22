@@ -2,8 +2,8 @@ import 'package:interactive/src/main.dart';
 import 'package:test/test.dart';
 
 void main() {
-  test(
-      'simplest', () => _body(inputs: ['"hi"'], expectOutputs: ['hi']));
+  test('simplest',
+      () => _body(inputs: ['"hi"', '10+20'], expectOutputs: ['hi', '30']));
 }
 
 Future<void> _body({
