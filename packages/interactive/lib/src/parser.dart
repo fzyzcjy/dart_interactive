@@ -36,7 +36,7 @@ class InputParser {
         final identifier = declaration.identifier;
         if (declaration is ClassDeclaration) {
           classMap[identifier] = ClassInfo(
-            rawCode: rawCode,
+            rawCode: declaration.getCode(rawCode),
             potentialAccessors:
                 _PotentialAccessorParser().parseClassDeclaration(declaration),
           );
