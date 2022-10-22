@@ -1,0 +1,9 @@
+version: 2
+enable-beta-ecosystems: true
+updates:
+- package-ecosystem: "pub"
+  directory: "/packages/interactive"
+  schedule:
+    interval: "daily"
+  open-pull-requests-limit: 10
+
