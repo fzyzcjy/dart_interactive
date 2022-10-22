@@ -5,13 +5,13 @@ Future<void> executionWorkspaceMain() async {
   await Future<void>.delayed(const Duration(days: 1000));
 }
 
-class Context {
+class InteractiveRuntimeContext {
   final _fieldMap = <Symbol, Object?>{};
 
   @override
   Object? noSuchMethod(Invocation invocation) {
     print(
-        'Context.noSuchMethod memberName=${invocation.memberName} positionalArguments=${invocation.positionalArguments} namedArguments=${invocation.namedArguments}');
+        'InteractiveRuntimeContext.noSuchMethod memberName=${invocation.memberName} positionalArguments=${invocation.positionalArguments} namedArguments=${invocation.namedArguments}');
 
     if (invocation.isGetter && _fieldMap.containsKey(invocation.memberName)) {
       return _fieldMap[invocation.memberName];
@@ -33,8 +33,8 @@ class Context {
   }
 
   @override
-  String toString() => 'Context(fieldMap: $_fieldMap)';
+  String toString() => 'InteractiveRuntimeContext(fieldMap: $_fieldMap)';
 }
 
 // used by [execution_workspace], not by code *inside* [interactive]
-final context = Context();
+final interactiveRuntimeContext = InteractiveRuntimeContext();

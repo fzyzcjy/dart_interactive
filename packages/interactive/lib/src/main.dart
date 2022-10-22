@@ -22,7 +22,7 @@ Future<void> main() async {
   }
 }
 
-const _evaluateCode = 'executeEntrypoint()';
+const _evaluateCode = 'interactiveRuntimeContext.generatedMethod()';
 
 Future<void> _handleInput(
   VmServiceWrapper vm,
