@@ -34,7 +34,12 @@ Future<void> _handleInput(
   codeGenerator.generate(rawInput);
 
   print('Phase: ReloadSources');
-  await vm.vmService.reloadSources(executionWorkspaceManager.isolateId);
+  final report =
+      await vm.vmService.reloadSources(executionWorkspaceManager.isolateId);
+  if (report.success != true) {
+    print('Error: Hot reload failed, maybe because code has syntax error?');
+    return;
+  }
 
   print('Phase: Evaluate');
   final isolateInfo = await executionWorkspaceManager.isolateInfo;
