@@ -16,9 +16,10 @@ Future<void> main() async {
   final executionWorkspaceManager =
       await ExecutionWorkspaceManager.create(vm, executionWorkspaceDir);
   final workspaceCode = WorkspaceCode();
+  final reader = ReplReader();
 
   try {
-    await runReader((input) =>
+    await reader.run((input) =>
         _handleInput(vm, executionWorkspaceManager, workspaceCode, input));
   } finally {
     vm.dispose();
