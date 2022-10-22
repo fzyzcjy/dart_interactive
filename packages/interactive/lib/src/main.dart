@@ -26,6 +26,10 @@ Future<void> main() async {
     'c = C(); c.f();',
     'class C { int a = 10; void f() => print("I am NEW f, a=\$a"); }',
     'c.f();',
+    'void func() { print("old func"); }',
+    'func();',
+    'void func() { print("NEW func"); }',
+    'func();',
   ]);
 
   try {

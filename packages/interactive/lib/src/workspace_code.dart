@@ -9,7 +9,7 @@ class WorkspaceCode {
 import 'workspace.dart'; // ignore: unused_import
 export 'workspace.dart';
 
-${declarationOfNameMap.values.join('\n\n')}
+${declarationMap.values.join('\n\n')}
 
 extension ExtDynamic on dynamic {
   void generatedMethod() {
