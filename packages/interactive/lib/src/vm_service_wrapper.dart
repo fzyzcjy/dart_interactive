@@ -6,8 +6,12 @@ import 'package:vm_service/vm_service_io.dart';
 
 class VmServiceWrapper {
   final VmService vmService;
+  final VM vm;
 
-  VmServiceWrapper._(this.vmService);
+  VmServiceWrapper._({
+    required this.vmService,
+    required this.vm,
+  });
 
   static Future<VmServiceWrapper> create() async {
     final serverUri = (await Service.getInfo()).serverUri;
@@ -19,8 +23,16 @@ class VmServiceWrapper {
     final vmService = await vmServiceConnectUri(
         convertToWebSocketUrl(serviceProtocolUrl: serverUri).toString(),
         log: _Log());
-    return VmServiceWrapper._(vmService);
+
+    final vm = await vmService.getVM();
+
+    return VmServiceWrapper._(
+      vmService: vmService,
+      vm: vm,
+    );
   }
+
+  String get isolateId => vm.isolates!.first.id!;
 
   void dispose() {
     vmService.dispose();
