@@ -19,7 +19,8 @@ class InputParser {
     if (compilationUnit != null) {
       for (final declaration
           in compilationUnit.declarations.whereType<ClassDeclaration>()) {
-        final name = declaration.declaredElement!.name;
+        final name = declaration.name.toString();
+        print('parseAndApply handle class name=$name');
         target.classCodeOfNameMap[name] = declaration.getCode(rawCode);
       }
 
