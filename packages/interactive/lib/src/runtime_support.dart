@@ -39,6 +39,9 @@ class InteractiveRuntimeContext {
 // used by [execution_workspace], not by code *inside* [interactive]
 final interactiveRuntimeContext = InteractiveRuntimeContext();
 
+// convenient name for repl
+final $ = interactiveRuntimeContext;
+
 dynamic synthesizedClassNoSuchMethod(Invocation invocation) {
   // delegate to read/write the context
   interactiveRuntimeContext.noSuchMethod(invocation);
