@@ -34,4 +34,6 @@ class Context {
 }
 
 // used by [execution_workspace], not by code *inside* [interactive]
-final context = Context();
+// need to explicitly set type to be "dynamic", otherwise errors when using
+// non-exist fields
+final dynamic context = Context();
