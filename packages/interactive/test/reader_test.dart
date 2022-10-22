@@ -14,5 +14,7 @@ void main() {
     expect(replValidator('f(g()'), false);
     expect(replValidator('void f() {'), false);
     expect(replValidator('a[1'), false);
+
+    expect(replValidator('a[1\n'), true);
   });
 }
