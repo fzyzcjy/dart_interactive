@@ -1,6 +1,10 @@
 import 'dart:io';
 
+import 'package:logging/logging.dart';
+
 class WorkspaceFileTree {
+  static final log = Logger('WorkspaceFileTree');
+ 
   final String directory;
 
   WorkspaceFileTree._(this.directory);
@@ -8,6 +12,9 @@ class WorkspaceFileTree {
   static Future<WorkspaceFileTree> create() async {
     final dir = await _getDir();
     await _prepare(dir);
+
+    log.info('Use $dir as workspace');
+
     return WorkspaceFileTree._(dir);
   }
 
