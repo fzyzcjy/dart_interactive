@@ -10,6 +10,9 @@ class Context {
 
   @override
   Object? noSuchMethod(Invocation invocation) {
+    print(
+        'Context.noSuchMethod memberName=${invocation.memberName} positionalArguments=${invocation.positionalArguments} namedArguments=${invocation.namedArguments}');
+
     if (invocation.isGetter && _fieldMap.containsKey(invocation.memberName)) {
       return _fieldMap[invocation.memberName];
     }
@@ -21,7 +24,7 @@ class Context {
       return null;
     }
 
-    if (invocation.isMethod) {
+    if (invocation.isMethod && _fieldMap.containsKey(invocation.memberName)) {
       return Function.apply(_fieldMap[invocation.memberName]! as Function,
           invocation.positionalArguments, invocation.namedArguments);
     }
