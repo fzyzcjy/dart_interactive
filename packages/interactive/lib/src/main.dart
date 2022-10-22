@@ -28,8 +28,10 @@ Future<void> _handleInput(
   // TODO fancier things later
   final evaluateCode = rawInput;
 
+  final isolateInfo = await executionWorkspaceManager.isolateInfo;
+  final targetId = isolateInfo.rootLib!.id!;
   final response = await vm.vmService
-      .evaluate(executionWorkspaceManager.isolateId, TODO, evaluateCode);
+      .evaluate(executionWorkspaceManager.isolateId, targetId, evaluateCode);
 
   _handleEvaluateResponse(response);
 }

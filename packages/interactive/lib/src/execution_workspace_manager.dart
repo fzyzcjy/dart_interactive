@@ -2,12 +2,15 @@ import 'dart:isolate';
 
 import 'package:interactive/src/vm_service_wrapper.dart';
 import 'package:collection/collection.dart';
+import 'package:vm_service/vm_service.dart' as vm_service;
 
 class ExecutionWorkspaceManager {
+  final VmServiceWrapper vm;
   final Isolate isolate;
   final String isolateId;
 
   ExecutionWorkspaceManager._({
+    required this.vm,
     required this.isolate,
     required this.isolateId,
   });
@@ -23,8 +26,12 @@ class ExecutionWorkspaceManager {
     final isolateIdsAfter = await vm.getIsolateIds();
     final isolateId = isolateIdsAfter.difference(isolateIdsBefore).single;
 
-    return ExecutionWorkspaceManager._(isolate: isolate, isolateId: isolateId);
+    return ExecutionWorkspaceManager._(
+        vm: vm, isolate: isolate, isolateId: isolateId);
   }
+
+  Future<vm_service.Isolate> get isolateInfo =>
+      vm.vmService.getIsolate(isolateId);
 }
 
 extension on VmServiceWrapper {
