@@ -24,6 +24,8 @@ class InputParser {
         target.classCodeOfNameMap[name] = declaration.getCode(rawCode);
       }
 
+      target.generatedMethodCodeBlock = '';
+
       return;
     }
 
