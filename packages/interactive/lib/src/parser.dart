@@ -14,26 +14,27 @@ import 'package:interactive/src/workspace_code.dart';
 import 'package:logging/logging.dart';
 
 class InputParser {
-  static final log = Logger('InputParser');
+  final log = Logger('InputParser');
 
-  static void parseAndApply(String rawCode, WorkspaceCode target) {
+  WorkspaceCode parse(String rawCode) {
     final compilationUnit = _tryParse(
         rawCode, (parser, token) => parser.parseCompilationUnit(token));
     if (compilationUnit != null) {
-      for (final declaration in compilationUnit.declarations) {
+      final declarationMap =
+          Map.fromEntries(compilationUnit.declarations.map((declaration) {
         final key =
             DeclarationKey(declaration.runtimeType, declaration.identifier);
         log.info('parseAndApply handle class $key');
-        target.declarationMap[key] = declaration.getCode(rawCode);
-      }
+        return MapEntry(key, declaration.getCode(rawCode));
+      }));
 
-      target.generatedMethodCodeBlock = '';
-
-      return;
+      return WorkspaceCode(
+          declarationMap: declarationMap, generatedMethodCodeBlock: '');
     }
 
     // consider as raw code
-    target.generatedMethodCodeBlock = rawCode;
+    return WorkspaceCode(
+        declarationMap: const {}, generatedMethodCodeBlock: rawCode);
   }
 }
 

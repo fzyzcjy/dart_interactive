@@ -1,6 +1,20 @@
 class WorkspaceCode {
-  final declarationMap = <DeclarationKey, String>{};
-  String generatedMethodCodeBlock = '';
+  final Map<DeclarationKey, String> declarationMap;
+  final String generatedMethodCodeBlock;
+
+  const WorkspaceCode({
+    required this.declarationMap,
+    required this.generatedMethodCodeBlock,
+  });
+
+  const WorkspaceCode.empty()
+      : declarationMap = const {},
+        generatedMethodCodeBlock = '';
+
+  WorkspaceCode merge(WorkspaceCode other) => WorkspaceCode(
+        declarationMap: {...declarationMap, ...other.declarationMap},
+        generatedMethodCodeBlock: other.generatedMethodCodeBlock,
+      );
 
   String generate() {
     return '''

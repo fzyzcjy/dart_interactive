@@ -15,17 +15,17 @@ class Executor {
 
   final VmServiceWrapper vm;
   final WorkspaceIsolate executionWorkspaceManager;
-  final WorkspaceCode workspaceCode;
+  var workspaceCode = const WorkspaceCode.empty();
+  final inputParser = InputParser();
 
-  Executor._(this.vm, this.executionWorkspaceManager, this.workspaceCode);
+  Executor._(this.vm, this.executionWorkspaceManager);
 
   static Future<Executor> create() async {
     final vm = await VmServiceWrapper.create();
     final executionWorkspaceManager =
         await WorkspaceIsolate.create(vm, executionWorkspaceDir);
-    final workspaceCode = WorkspaceCode();
 
-    return Executor._(vm, executionWorkspaceManager, workspaceCode);
+    return Executor._(vm, executionWorkspaceManager);
   }
 
   void dispose() {
@@ -36,7 +36,7 @@ class Executor {
     String rawInput,
   ) async {
     log.info('Phase: Parse');
-    InputParser.parseAndApply(rawInput, workspaceCode);
+    workspaceCode = workspaceCode.merge(inputParser.parse(rawInput));
 
     log.info('Phase: Generate');
     File('$executionWorkspaceDir/lib/auto_generated.dart')
