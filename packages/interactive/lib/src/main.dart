@@ -1,7 +1,9 @@
-import 'package:interactive/src/code_generator.dart';
+import 'dart:io';
+
 import 'package:interactive/src/execution_workspace_manager.dart';
 import 'package:interactive/src/reader.dart';
 import 'package:interactive/src/vm_service_wrapper.dart';
+import 'package:interactive/src/workspace_code.dart';
 import 'package:vm_service/vm_service.dart';
 
 Future<void> main() async {
@@ -12,11 +14,11 @@ Future<void> main() async {
   final vm = await VmServiceWrapper.create();
   final executionWorkspaceManager =
       await ExecutionWorkspaceManager.create(vm, executionWorkspaceDir);
-  final codeGenerator = CodeGenerator();
+  final workspaceCode = WorkspaceCode();
 
   try {
     await runReader((input) =>
-        _handleInput(vm, executionWorkspaceManager, codeGenerator, input));
+        _handleInput(vm, executionWorkspaceManager, workspaceCode, input));
   } finally {
     vm.dispose();
   }
@@ -24,14 +26,20 @@ Future<void> main() async {
 
 const _evaluateCode = 'interactiveRuntimeContext.generatedMethod()';
 
+// TODO do not hardcode this...
+const workspaceCodePath =
+    '/Users/tom/RefCode/dart_interactive/packages/execution_workspace/lib/auto_generated.dart';
+
 Future<void> _handleInput(
   VmServiceWrapper vm,
   ExecutionWorkspaceManager executionWorkspaceManager,
-  CodeGenerator codeGenerator,
+  WorkspaceCode workspaceCode,
   String rawInput,
 ) async {
+  workspaceCode.generatedMethodCodeBlock = rawInput;
+
   print('Phase: Generate');
-  codeGenerator.generate(rawInput);
+  File(workspaceCodePath).writeAsStringSync(workspaceCode.generate());
 
   print('Phase: ReloadSources');
   final report =
