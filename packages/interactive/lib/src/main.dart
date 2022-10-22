@@ -10,6 +10,7 @@ Future<void> main() async {
   final vm = await VmServiceWrapper.create();
   final executionWorkspaceManager =
       await ExecutionWorkspaceManager.create(executionWorkspaceDir);
+
   try {
     await runReader(
         (input) => _handleInput(vm, executionWorkspaceManager, input));
@@ -21,7 +22,10 @@ Future<void> main() async {
 Future<void> _handleInput(
   VmServiceWrapper vm,
   ExecutionWorkspaceManager executionWorkspaceManager,
-  String input,
+  String rawInput,
 ) async {
-  TODO;
+  final evaluateCode = TODO;
+
+  await vm.vmService.evaluate(
+      vm.isolateId, executionWorkspaceManager.isolateId, evaluateCode);
 }

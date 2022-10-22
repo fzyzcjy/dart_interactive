@@ -34,6 +34,8 @@ class VmServiceWrapper {
 
   String get isolateId => vm.isolates!.first.id!;
 
+  String get isolateId => vm.isolates!.first.id!;
+
   void dispose() {
     vmService.dispose();
   }
