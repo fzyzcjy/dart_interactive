@@ -16,7 +16,15 @@ Future<void> main() async {
   final executionWorkspaceManager =
       await ExecutionWorkspaceManager.create(vm, executionWorkspaceDir);
   final workspaceCode = WorkspaceCode();
-  final reader = ReplReader();
+
+  // final reader = ReplReader();
+
+  final reader = TestReader([
+    'a = 10;',
+    'class C { void f() => print("I am f"); }',
+    'print(a);',
+    'C().f();',
+  ]);
 
   try {
     await reader.run((input) =>
