@@ -83,7 +83,7 @@ new
 65
 ```
 
-### Download new libraries
+### Add libraries as dependency
 
 Use `!dart pub add package_name`, just like what is done in Python (Jupyter/IPython).
 
@@ -118,7 +118,15 @@ directory/file.txt
 
 #### Third party package
 
-TODO
+Note: If it has not been added to dependency, please follow instructions above and use `!dart pub add path` to add it.
+
+```dart
+>>> join('directory', 'file.txt')
+(...error, since have imported it...)
+>>> import 'package:path/path.dart';
+>>> join('directory', 'file.txt')   
+directory/file.txt
+```
 
 ### Multiple in one go
 
