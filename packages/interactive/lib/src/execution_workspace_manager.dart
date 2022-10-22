@@ -16,24 +16,23 @@ class ExecutionWorkspaceManager {
       VmServiceWrapper vm, String executionWorkspaceDir) async {
     final path = '$executionWorkspaceDir/lib/main.dart';
 
-    final isolateIdsBefore = (await vm.getIsolateIds()).toSet();
+    final isolateIdsBefore = await vm.getIsolateIds();
 
     final isolate = await _spawnUriWithErrorHandling(Uri.file(path));
 
-    while (true) {
-      final isolateIdsAfter = (await vm.getIsolateIds()).toSet();
-      final isolateId =
-          isolateIdsAfter.difference(isolateIdsBefore).singleOrNull;
-      print('isolateIdsAfter=$isolateIdsAfter');
+    final isolateIdsAfter = await vm.getIsolateIds();
+    final isolateId = isolateIdsAfter.difference(isolateIdsBefore).single;
 
-      if (isolateId != null) {
-        return ExecutionWorkspaceManager._(
-            isolate: isolate, isolateId: isolateId);
-      }
-
-      await Future<void>.delayed(const Duration(milliseconds: 100));
-    }
+    return ExecutionWorkspaceManager._(isolate: isolate, isolateId: isolateId);
   }
+}
+
+extension on VmServiceWrapper {
+  Future<Set<String>> getIsolateIds() async => (await vmService.getVM())
+      .isolates!
+      .map((e) => e.id)
+      .whereNotNull()
+      .toSet();
 }
 
 // ref: [Isolate.run]

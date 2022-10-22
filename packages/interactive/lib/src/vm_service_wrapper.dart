@@ -25,9 +25,6 @@ class VmServiceWrapper {
     return VmServiceWrapper._(vmService: vmService);
   }
 
-  Future<List<String?>> getIsolateIds() async =>
-      (await vmService.getVM()).isolates!.map((e) => e.id).toList();
-
   void dispose() {
     vmService.dispose();
   }
