@@ -13,19 +13,20 @@ class Executor {
 
   static const _evaluateCode = 'interactiveRuntimeContext.generatedMethod()';
 
+  final Writer writer;
   final VmServiceWrapper vm;
   final WorkspaceIsolate executionWorkspaceManager;
   var workspaceCode = const WorkspaceCode.empty();
   final inputParser = InputParser();
 
-  Executor._(this.vm, this.executionWorkspaceManager);
+  Executor._(this.vm, this.executionWorkspaceManager, this.writer);
 
-  static Future<Executor> create() async {
+  static Future<Executor> create(Writer writer) async {
     final vm = await VmServiceWrapper.create();
     final executionWorkspaceManager =
         await WorkspaceIsolate.create(vm, executionWorkspaceDir);
 
-    return Executor._(vm, executionWorkspaceManager);
+    return Executor._(vm, executionWorkspaceManager, writer);
   }
 
   void dispose() {
@@ -35,6 +36,8 @@ class Executor {
   Future<void> execute(
     String rawInput,
   ) async {
+    if (rawInput.trim().isEmpty) return;
+
     log.info('Phase: Parse');
     workspaceCode = workspaceCode.merge(inputParser.parse(rawInput));
 
@@ -64,7 +67,7 @@ class Executor {
     if (response is InstanceRef) {
       final value = response.valueAsString;
       if (value != null && value != 'null') {
-        print(value);
+        writer(value);
       }
     } else if (response is ErrorRef) {
       log.warning('Error: $response');

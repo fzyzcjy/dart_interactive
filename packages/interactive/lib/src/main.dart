@@ -1,5 +1,5 @@
-
 import 'package:args/args.dart';
+import 'package:cli_repl/cli_repl.dart';
 import 'package:interactive/src/executor.dart';
 import 'package:interactive/src/io.dart';
 import 'package:logging/logging.dart';
@@ -14,20 +14,27 @@ Future<void> main(List<String> args) {
       .parse(args);
 
   return run(
-    reader: ReplReader(),
+    reader: Repl(prompt: '>>>').run,
+    writer: print,
     verbose: parsedArgs['verbose'] as bool,
   );
 }
 
+typedef Reader = Iterable<String> Function();
+typedef Writer = void Function(String);
+
 Future<void> run({
   required bool verbose,
-  required BaseReader reader,
+  required Reader reader,
+  required Writer writer,
 }) async {
   _setUpLogging(verbose ? Level.ALL : Level.WARNING);
 
-  final executor = await Executor.create();
+  final executor = await Executor.create(writer);
   try {
-    await reader.run(executor.execute);
+    for (final input in reader()) {
+      await executor.execute(input);
+    }
   } finally {
     executor.dispose();
   }
