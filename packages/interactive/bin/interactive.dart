@@ -1,9 +1,25 @@
 import 'dart:io';
 
-// this file should have at few imports as possible to speed up booting
+import 'package:collection/collection.dart';
+import 'package:interactive/src/main.dart' as lib_main;
+
+// ref: https://github.com/dart-lang/pub/issues/3291#issuecomment-1019880145
 Future<void> main(List<String> rawArgs) async {
+  if (rawArgs.firstOrNull == _vmServiceWasEnabledArg) {
+    await lib_main.main(rawArgs.skip(1).toList());
+  } else {
+    await _runWithEnableVmService(rawArgs);
+  }
+}
+
+Future<void> _runWithEnableVmService(List<String> rawArgs) async {
   final executable = Platform.executable;
-  final arguments = ['--enable-vm-service', _interactiveRawScript, ...rawArgs];
+  final arguments = [
+    '--enable-vm-service',
+    Platform.script.toString(),
+    _vmServiceWasEnabledArg,
+    ...rawArgs
+  ];
 
   print('Run: $executable $arguments');
   final process = await Process.start(executable, arguments,
@@ -12,15 +28,4 @@ Future<void> main(List<String> rawArgs) async {
   exit(innerExitCode);
 }
 
-// ref: https://github.com/dart-lang/pub/issues/3291
-String get _interactiveRawScript {
-  const kReplaceSrc = 'interactive.dart';
-  const kReplaceDst = 'interactive_raw.dart';
-
-  final self = Platform.script.toString();
-  if (!self.contains(kReplaceSrc)) {
-    throw AssertionError(
-        'self=$self does not contain $kReplaceSrc, please create an issue');
-  }
-  return self.replaceAll(kReplaceSrc, kReplaceDst);
-}
+const _vmServiceWasEnabledArg = '--vm-service-was-enabled';
