@@ -27,16 +27,17 @@ Future<void> run({
 }) async {
   _setUpLogging(verbose ? Level.ALL : Level.WARNING);
 
-  final executionWorkspaceDir = await WorkspaceFileTree().create();
+  final workspaceFileTree = await WorkspaceFileTree.create();
 
-  final executor = await Executor.create(writer,
-      executionWorkspaceDir: executionWorkspaceDir);
+  final executor =
+      await Executor.create(writer, workspaceFileTree: workspaceFileTree);
   try {
     for (final input in reader()) {
       await executor.execute(input);
     }
   } finally {
     executor.dispose();
+    workspaceFileTree.dispose();
   }
 }
 
