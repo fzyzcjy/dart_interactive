@@ -13,7 +13,7 @@ Future<void> main(List<String> args) {
       .parse(args);
 
   return run(
-    reader: Repl(prompt: '>>>').run,
+    reader: Repl(prompt: '>>> ').run,
     writer: print,
     verbose: parsedArgs['verbose'] as bool,
   );
