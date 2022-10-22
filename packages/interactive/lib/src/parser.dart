@@ -174,6 +174,11 @@ class _PotentialAccessorVisitor extends GeneralizingAstVisitor<void> {
   }
 
   @override
+  void visitPrefixExpression(PrefixExpression node) {
+    _visitPotentialAccessor(node.operand);
+  }
+
+  @override
   void visitPostfixExpression(PostfixExpression node) {
     _visitPotentialAccessor(node.operand);
   }
