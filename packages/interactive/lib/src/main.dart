@@ -30,6 +30,9 @@ Future<void> _handleInput(
   CodeGenerator codeGenerator,
   String rawInput,
 ) async {
+  print('Phase: Generate');
+  codeGenerator.generate(rawInput);
+
   print('Phase: ReloadSources');
   await vm.vmService.reloadSources(executionWorkspaceManager.isolateId);
 
