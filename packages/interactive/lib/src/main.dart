@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
-import 'package:cli_repl/cli_repl.dart';
 import 'package:interactive/src/executor.dart';
 import 'package:interactive/src/reader.dart';
 import 'package:interactive/src/workspace_file_tree.dart';

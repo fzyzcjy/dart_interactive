@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 10 * * *"
+
+jobs:
+  flutter:
+    name: ${{ matrix.package_name }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        package_name:
+          - interactive
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: dart-lang/setup-dart@v1.3
+
+      - name: Install dependencies
+        run: dart pub get
+        working-directory: packages/${{ matrix.package_name }}
+
+      - name: Analyze
+        run: dart analyze
+        working-directory: packages/${{ matrix.package_name }}
+
+      - name: Run tests
+        run: dart run --enable-vm-service test/e2e_test.dart
+        working-directory: packages/${{ matrix.package_name }}
+
+      - name: Check format
+        run: dart format --set-exit-if-changed
+        working-directory: packages/${{ matrix.package_name }}
+
