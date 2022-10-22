@@ -46,6 +46,8 @@ class WorkspaceCode {
     return '''
 // AUTO-GENERATED, PLEASE DO NOT MODIFY BY HAND
 
+import 'package:interactive/src/runtime_support.dart';
+
 import 'workspace.dart'; // ignore: unused_import
 export 'workspace.dart';
 
