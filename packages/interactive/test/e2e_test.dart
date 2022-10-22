@@ -189,7 +189,7 @@ void main() {
         'a',
       ],
       expectOutputs: [
-        '1',
+        '10',
         '11',
       ],
     ),
