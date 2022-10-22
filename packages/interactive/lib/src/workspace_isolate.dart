@@ -4,18 +4,18 @@ import 'package:interactive/src/vm_service_wrapper.dart';
 import 'package:collection/collection.dart';
 import 'package:vm_service/vm_service.dart' as vm_service;
 
-class ExecutionWorkspaceManager {
+class WorkspaceIsolate {
   final VmServiceWrapper vm;
   final Isolate isolate;
   final String isolateId;
 
-  ExecutionWorkspaceManager._({
+  WorkspaceIsolate._({
     required this.vm,
     required this.isolate,
     required this.isolateId,
   });
 
-  static Future<ExecutionWorkspaceManager> create(
+  static Future<WorkspaceIsolate> create(
       VmServiceWrapper vm, String executionWorkspaceDir) async {
     final path = '$executionWorkspaceDir/lib/main.dart';
 
@@ -26,8 +26,7 @@ class ExecutionWorkspaceManager {
     final isolateIdsAfter = await vm.getIsolateIds();
     final isolateId = isolateIdsAfter.difference(isolateIdsBefore).single;
 
-    return ExecutionWorkspaceManager._(
-        vm: vm, isolate: isolate, isolateId: isolateId);
+    return WorkspaceIsolate._(vm: vm, isolate: isolate, isolateId: isolateId);
   }
 
   Future<vm_service.Isolate> get isolateInfo =>

@@ -8,6 +8,7 @@ environment:
 dependencies:
   analyzer: ^5.0.0
   cli_repl: ^0.2.3
+  collection: ^1.17.0
   vm_service: ^9.0.0
 
 dev_dependencies:

@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:interactive/src/execution_workspace_manager.dart';
 import 'package:interactive/src/parser.dart';
 import 'package:interactive/src/reader.dart';
 import 'package:interactive/src/vm_service_wrapper.dart';
 import 'package:interactive/src/workspace_code.dart';
+import 'package:interactive/src/workspace_isolate.dart';
 import 'package:vm_service/vm_service.dart';
 
 Future<void> main() async {
@@ -14,7 +14,7 @@ Future<void> main() async {
 
   final vm = await VmServiceWrapper.create();
   final executionWorkspaceManager =
-      await ExecutionWorkspaceManager.create(vm, executionWorkspaceDir);
+      await WorkspaceIsolate.create(vm, executionWorkspaceDir);
   final workspaceCode = WorkspaceCode();
 
   final reader = ReplReader();
@@ -48,7 +48,7 @@ const workspaceCodePath =
 
 Future<void> _handleInput(
   VmServiceWrapper vm,
-  ExecutionWorkspaceManager executionWorkspaceManager,
+  WorkspaceIsolate executionWorkspaceManager,
   WorkspaceCode workspaceCode,
   String rawInput,
 ) async {
