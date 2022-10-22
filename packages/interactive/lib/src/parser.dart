@@ -49,6 +49,7 @@ class InputParser {
           .map((e) => e.getCode(rawCode))
           .toSet();
 
+      log.info('parse return via compilationUnit');
       return WorkspaceCode(
         classMap: classMap,
         functionMap: functionMap,
@@ -61,12 +62,14 @@ class InputParser {
     final expression =
         _tryParse(rawCode, (parser, token) => parser.parseExpression(token));
     if (expression != null) {
+      log.info('parse return via expression');
       return WorkspaceCode.codeBlock(
         generatedMethodCodeBlock: 'return ($rawCode) as dynamic;',
       );
     }
 
     // fallback as raw code
+    log.info('parse return via raw code');
     return WorkspaceCode.codeBlock(
       generatedMethodCodeBlock: rawCode,
     );

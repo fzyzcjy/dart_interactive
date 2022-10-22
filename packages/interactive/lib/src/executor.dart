@@ -40,6 +40,8 @@ class Executor {
   Future<void> execute(
     String rawInput,
   ) async {
+    log.info('=== Execute rawInput=$rawInput ===');
+
     if (rawInput.trim().isEmpty) return;
 
     log.info('Phase: Parse');
