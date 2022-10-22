@@ -1,5 +1,5 @@
 class WorkspaceCode {
-  final classCodeOfNameMap = <String, String>{};
+  final declarationMap = <DeclarationKey, String>{};
   String generatedMethodCodeBlock = '';
 
   String generate() {
@@ -9,7 +9,7 @@ class WorkspaceCode {
 import 'workspace.dart'; // ignore: unused_import
 export 'workspace.dart';
 
-${classCodeOfNameMap.values.join('\n\n')}
+${declarationOfNameMap.values.join('\n\n')}
 
 extension ExtDynamic on dynamic {
   void generatedMethod() {
@@ -18,4 +18,25 @@ extension ExtDynamic on dynamic {
 }
 ''';
   }
+}
+
+class DeclarationKey {
+  final Type type;
+  final String identifier;
+
+  DeclarationKey(this.type, this.identifier);
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is DeclarationKey &&
+          runtimeType == other.runtimeType &&
+          type == other.type &&
+          identifier == other.identifier;
+
+  @override
+  int get hashCode => type.hashCode ^ identifier.hashCode;
+
+  @override
+  String toString() => 'DeclarationKey($type, $identifier)';
 }

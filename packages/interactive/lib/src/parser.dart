@@ -17,11 +17,11 @@ class InputParser {
     final compilationUnit = _tryParse(
         rawCode, (parser, token) => parser.parseCompilationUnit(token));
     if (compilationUnit != null) {
-      for (final declaration
-          in compilationUnit.declarations.whereType<ClassDeclaration>()) {
-        final name = declaration.name.toString();
-        print('parseAndApply handle class name=$name');
-        target.classCodeOfNameMap[name] = declaration.getCode(rawCode);
+      for (final declaration in compilationUnit.declarations) {
+        final key =
+            DeclarationKey(declaration.runtimeType, declaration.identifier);
+        print('parseAndApply handle class $key');
+        target.declarationMap[key] = declaration.getCode(rawCode);
       }
 
       target.generatedMethodCodeBlock = '';
@@ -71,4 +71,13 @@ class _LoggingErrorListener extends BooleanErrorListener {
 extension on AstNode {
   String getCode(String fullCode) =>
       fullCode.substring(offset, offset + length);
+}
+
+extension on CompilationUnitMember {
+  String get identifier {
+    final that = this;
+    if (that is NamedCompilationUnitMember) return that.name.toString();
+    throw UnimplementedError(
+        'Not implemented identifier for $runtimeType yet, please make a PR');
+  }
 }
