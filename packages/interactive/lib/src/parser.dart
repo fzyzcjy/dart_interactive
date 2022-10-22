@@ -32,9 +32,20 @@ class InputParser {
           declarationMap: declarationMap, generatedMethodCodeBlock: '');
     }
 
-    // consider as raw code
+    final expression =
+        _tryParse(rawCode, (parser, token) => parser.parseExpression(token));
+    if (expression != null) {
+      return WorkspaceCode(
+        declarationMap: const {},
+        generatedMethodCodeBlock: 'return ($rawCode);',
+      );
+    }
+
+    // fallback as raw code
     return WorkspaceCode(
-        declarationMap: const {}, generatedMethodCodeBlock: rawCode);
+      declarationMap: const {},
+      generatedMethodCodeBlock: rawCode,
+    );
   }
 }
 

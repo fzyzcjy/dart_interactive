@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   test(
-      'simplest', () => _body(inputs: ['print("hi");'], expectOutputs: ['hi']));
+      'simplest', () => _body(inputs: ['"hi"'], expectOutputs: ['hi']));
 }
 
 Future<void> _body({
