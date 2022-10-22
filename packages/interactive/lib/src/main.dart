@@ -7,34 +7,23 @@ import 'package:interactive/src/workspace_code.dart';
 import 'package:interactive/src/workspace_isolate.dart';
 import 'package:vm_service/vm_service.dart';
 
-Future<void> main() async {
-  // TODO should dynamically generate
-  const executionWorkspaceDir =
-      '/Users/tom/RefCode/dart_interactive/packages/execution_workspace';
+// TODO should dynamically generate and do not hardcode path...
+const executionWorkspaceDir =
+    '/Users/tom/RefCode/dart_interactive/packages/execution_workspace';
 
+Future<void> main() => run(reader: ReplReader());
+
+Future<void> run({
+  required BaseReader reader,
+}) async {
   final vm = await VmServiceWrapper.create();
   final executionWorkspaceManager =
       await WorkspaceIsolate.create(vm, executionWorkspaceDir);
   final workspaceCode = WorkspaceCode();
 
-  final reader = ReplReader();
-
-  // final reader = TestReader([
-  //   'a = 10;',
-  //   'print(a);',
-  //   'class C { int a = 10; void f() => print("I am f, a=\$a"); }',
-  //   'c = C(); c.f();',
-  //   'class C { int a = 10; void f() => print("I am NEW f, a=\$a"); }',
-  //   'c.f();',
-  //   'void func() { print("old func"); }',
-  //   'func();',
-  //   'void func() { print("NEW func"); }',
-  //   'func();',
-  // ]);
-
   try {
     await reader.run((input) =>
-        _handleInput(vm, executionWorkspaceManager, workspaceCode, input));
+        _executeOne(vm, executionWorkspaceManager, workspaceCode, input));
   } finally {
     vm.dispose();
   }
@@ -42,11 +31,7 @@ Future<void> main() async {
 
 const _evaluateCode = 'interactiveRuntimeContext.generatedMethod()';
 
-// TODO do not hardcode this...
-const workspaceCodePath =
-    '/Users/tom/RefCode/dart_interactive/packages/execution_workspace/lib/auto_generated.dart';
-
-Future<void> _handleInput(
+Future<void> _executeOne(
   VmServiceWrapper vm,
   WorkspaceIsolate executionWorkspaceManager,
   WorkspaceCode workspaceCode,
@@ -56,7 +41,8 @@ Future<void> _handleInput(
   InputParser.parseAndApply(rawInput, workspaceCode);
 
   print('Phase: Generate');
-  File(workspaceCodePath).writeAsStringSync(workspaceCode.generate());
+  File('$executionWorkspaceDir/lib/auto_generated.dart')
+      .writeAsStringSync(workspaceCode.generate());
 
   print('Phase: ReloadSources');
   final report =
