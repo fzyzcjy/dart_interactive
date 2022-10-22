@@ -22,10 +22,10 @@ Future<void> main() async {
   final reader = TestReader([
     'a = 10;',
     'print(a);',
-    'class C { void f() => print("I am f"); }',
-    'C().f();',
-    'class C { void f() => print("new print inside class method!"); }',
-    'C().f();',
+    'class C { int a = 10; void f() => print("I am f, a=\$a"); }',
+    'c = C(); c.f();',
+    'class C { int a = 10; void f() => print("I am NEW f, a=\$a"); }',
+    'c.f();',
   ]);
 
   try {
