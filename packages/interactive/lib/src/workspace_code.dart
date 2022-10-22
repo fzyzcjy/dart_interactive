@@ -26,7 +26,7 @@ export 'workspace.dart';
 ${declarationMap.values.join('\n\n')}
 
 extension ExtDynamic on dynamic {
-  void generatedMethod() {
+  Object? generatedMethod() {
     $generatedMethodCodeBlock
   }
 }

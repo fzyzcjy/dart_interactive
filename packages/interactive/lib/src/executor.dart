@@ -42,8 +42,10 @@ class Executor {
     workspaceCode = workspaceCode.merge(inputParser.parse(rawInput));
 
     log.info('Phase: Generate');
+    final generatedCode = workspaceCode.generate();
     File('$executionWorkspaceDir/lib/auto_generated.dart')
-        .writeAsStringSync(workspaceCode.generate());
+        .writeAsStringSync(generatedCode);
+    log.info('generatedCode: $generatedCode');
 
     log.info('Phase: ReloadSources');
     final report =
