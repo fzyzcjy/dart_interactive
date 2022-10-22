@@ -39,7 +39,7 @@ Future<void> _handleInput(
 void _handleEvaluateResponse(Response response) {
   if (response is InstanceRef) {
     final value = response.valueAsString;
-    if (value != null) {
+    if (value != null && value != 'null') {
       print(value);
     }
   } else if (response is ErrorRef) {
