@@ -53,3 +53,5 @@ doc/api/
 *.js_
 *.js.deps
 *.js.map
+
+lib/auto_generated.dart

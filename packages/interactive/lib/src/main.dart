@@ -1,3 +1,4 @@
+import 'package:interactive/src/code_generator.dart';
 import 'package:interactive/src/execution_workspace_manager.dart';
 import 'package:interactive/src/reader.dart';
 import 'package:interactive/src/vm_service_wrapper.dart';
@@ -11,27 +12,32 @@ Future<void> main() async {
   final vm = await VmServiceWrapper.create();
   final executionWorkspaceManager =
       await ExecutionWorkspaceManager.create(vm, executionWorkspaceDir);
+  final codeGenerator = CodeGenerator();
 
   try {
-    await runReader(
-        (input) => _handleInput(vm, executionWorkspaceManager, input));
+    await runReader((input) =>
+        _handleInput(vm, executionWorkspaceManager, codeGenerator, input));
   } finally {
     vm.dispose();
   }
 }
 
+const _evaluateCode = 'context.generatedMethod()';
+
 Future<void> _handleInput(
   VmServiceWrapper vm,
   ExecutionWorkspaceManager executionWorkspaceManager,
+  CodeGenerator codeGenerator,
   String rawInput,
 ) async {
-  // TODO fancier things later
-  final evaluateCode = rawInput;
+  print('Phase: ReloadSources');
+  await vm.vmService.reloadSources(executionWorkspaceManager.isolateId);
 
+  print('Phase: Evaluate');
   final isolateInfo = await executionWorkspaceManager.isolateInfo;
   final targetId = isolateInfo.rootLib!.id!;
   final response = await vm.vmService
-      .evaluate(executionWorkspaceManager.isolateId, targetId, evaluateCode);
+      .evaluate(executionWorkspaceManager.isolateId, targetId, _evaluateCode);
 
   _handleEvaluateResponse(response);
 }
