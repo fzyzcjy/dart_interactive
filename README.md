@@ -2,7 +2,7 @@
 
 ## Introduction
 
-TODO
+![](doc/logo.svg)
 
 Run it (temporary solution, will refactor later): Inside `packages/interactive`, execute `dart run --enable-vm-service bin/interactive.dart`.
 
