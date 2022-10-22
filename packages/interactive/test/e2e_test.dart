@@ -113,7 +113,7 @@ void main() {
     () => _body(
       inputs: [
         'a = 1;',
-        r'class C { void f() => $.a++; }',
+        r'class C { int f() => $.a++; }',
         'C().f()',
         'a',
       ],
