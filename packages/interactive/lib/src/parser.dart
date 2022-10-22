@@ -183,6 +183,11 @@ class _PotentialAccessorVisitor extends GeneralizingAstVisitor<void> {
     // nothing
   }
 
+  @override
+  void visitLiteral(Literal node) {
+    // nothing
+  }
+
   void _visitPotentialAccessor(Expression node) {
     if (node is SimpleIdentifier) {
       potentialAccessors.add(node.name);
