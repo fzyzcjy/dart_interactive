@@ -40,4 +40,5 @@ class InteractiveRuntimeContext {
 final interactiveRuntimeContext = InteractiveRuntimeContext();
 
 // convenient name for repl
-final $ = interactiveRuntimeContext;
+// notice this "dynamic" - otherwise cannot access fields
+final dynamic $ = interactiveRuntimeContext;
