@@ -1,7 +1,6 @@
 import 'package:args/args.dart';
 import 'package:cli_repl/cli_repl.dart';
 import 'package:interactive/src/executor.dart';
-import 'package:interactive/src/io.dart';
 import 'package:logging/logging.dart';
 
 // TODO should dynamically generate and do not hardcode path...
