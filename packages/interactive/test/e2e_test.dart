@@ -125,7 +125,20 @@ void main() {
   );
 
   test(
-    'function uses variable',
+    'function uses local variable',
+    () => _body(
+      inputs: [
+        'int f() { int a = 0; return a++; }',
+        'f()',
+      ],
+      expectOutputs: [
+        '0',
+      ],
+    ),
+  );
+
+  test(
+    'function uses global variable',
     () => _body(
       inputs: [
         'a = 1;',
@@ -141,12 +154,37 @@ void main() {
   );
 
   test(
-    'class method uses variable',
+    'class method uses local variable',
+    () => _body(
+      inputs: [
+        'class C { int f() { int a = 10; return a++; } }',
+        'C().f()',
+      ],
+      expectOutputs: [
+        '10',
+      ],
+    ),
+  );
+
+  test(
+    'class method uses field',
+    () => _body(
+      inputs: [
+        'class C { int a = 10; int f() { return a++; } }',
+        'C().f()',
+      ],
+      expectOutputs: [
+        '10',
+      ],
+    ),
+  );
+
+  test(
+    'class method uses global variable',
     () => _body(
       inputs: [
         'a = 1;',
-        // TODO "$." to be removed
-        r'class C { int f() => $.a++; }',
+        'class C { int f() => a++; }',
         'C().f()',
         'a',
       ],
