@@ -2,27 +2,29 @@ import 'dart:io';
 
 import 'package:logging/logging.dart';
 
-Future<void> executeProcess(String command,
-    {required String workingDirectory}) async {
+Future<void> executeProcess(
+  String command, {
+  required String workingDirectory,
+  required void Function(String) writer,
+}) async {
   final logger = Logger('ExecuteProcess');
 
   logger.info('start `$command` in $workingDirectory');
 
   final process = await Process.start(
-    command,
-    const [],
+    '/bin/sh',
+    ['-c', command],
     workingDirectory: workingDirectory,
     runInShell: true,
   );
 
-  process.stdout.listen((e) => logger.info(String.fromCharCodes(e)));
-  process.stderr
-      .listen((e) => logger.warning('[STDERR] ${String.fromCharCodes(e)}'));
+  process.stdout.listen((e) => writer(String.fromCharCodes(e)));
+  process.stderr.listen((e) => writer('[STDERR] ${String.fromCharCodes(e)}'));
 
   final exitCode = await process.exitCode;
   logger.info('end exitCode=$exitCode');
 
   if (exitCode != 0) {
-    throw Exception('Process execution failed (exitCode=$exitCode)');
+    logger.warning('Process execution failed (exitCode=$exitCode)');
   }
 }

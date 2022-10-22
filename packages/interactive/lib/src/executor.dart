@@ -48,7 +48,11 @@ class Executor {
   static const _kExecuteShellPrefix = '!';
 
   Future<void> _executeShell(String rawInput) async {
-    await executeProcess(rawInput, workingDirectory: executionWorkspaceDir);
+    await executeProcess(
+      rawInput.substring(_kExecuteShellPrefix.length),
+      workingDirectory: executionWorkspaceDir,
+      writer: writer,
+    );
   }
 
   Future<void> _executeCode(String rawInput) async {
