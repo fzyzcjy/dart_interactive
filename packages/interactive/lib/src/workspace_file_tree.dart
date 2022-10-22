@@ -4,7 +4,7 @@ import 'package:logging/logging.dart';
 
 class WorkspaceFileTree {
   static final log = Logger('WorkspaceFileTree');
- 
+
   final String directory;
 
   WorkspaceFileTree._(this.directory);
