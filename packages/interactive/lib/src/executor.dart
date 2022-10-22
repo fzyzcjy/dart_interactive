@@ -15,18 +15,18 @@ class Executor {
 
   final Writer writer;
   final VmServiceWrapper vm;
-  final WorkspaceIsolate executionWorkspaceManager;
+  final WorkspaceIsolate workspaceIsolate;
   var workspaceCode = const WorkspaceCode.empty();
   final inputParser = InputParser();
 
-  Executor._(this.vm, this.executionWorkspaceManager, this.writer);
+  Executor._(this.vm, this.workspaceIsolate, this.writer);
 
   static Future<Executor> create(Writer writer) async {
     final vm = await VmServiceWrapper.create();
-    final executionWorkspaceManager =
+    final workspaceIsolate =
         await WorkspaceIsolate.create(vm, executionWorkspaceDir);
 
-    return Executor._(vm, executionWorkspaceManager, writer);
+    return Executor._(vm, workspaceIsolate, writer);
   }
 
   void dispose() {
@@ -48,8 +48,7 @@ class Executor {
     log.info('generatedCode: $generatedCode');
 
     log.info('Phase: ReloadSources');
-    final report =
-        await vm.vmService.reloadSources(executionWorkspaceManager.isolateId);
+    final report = await vm.vmService.reloadSources(workspaceIsolate.isolateId);
     if (report.success != true) {
       log.warning(
           'Error: Hot reload failed, maybe because code has syntax error?');
@@ -57,10 +56,10 @@ class Executor {
     }
 
     log.info('Phase: Evaluate');
-    final isolateInfo = await executionWorkspaceManager.isolateInfo;
+    final isolateInfo = await workspaceIsolate.isolateInfo;
     final targetId = isolateInfo.rootLib!.id!;
     final response = await vm.vmService
-        .evaluate(executionWorkspaceManager.isolateId, targetId, _evaluateCode);
+        .evaluate(workspaceIsolate.isolateId, targetId, _evaluateCode);
 
     _handleEvaluateResponse(response);
   }
