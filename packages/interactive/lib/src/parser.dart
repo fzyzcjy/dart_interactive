@@ -10,12 +10,32 @@ import 'package:analyzer/src/dart/scanner/reader.dart';
 import 'package:analyzer/src/dart/scanner/scanner.dart';
 import 'package:analyzer/src/generated/parser.dart';
 import 'package:analyzer/src/string_source.dart';
+import 'package:interactive/src/workspace_code.dart';
+
+class InputParser {
+  static void parseAndApply(String rawCode, WorkspaceCode target) {
+    final compilationUnit = _tryParse(
+        rawCode, (parser, token) => parser.parseCompilationUnit(token));
+    if (compilationUnit != null) {
+      for (final declaration
+          in compilationUnit.declarations.whereType<ClassDeclaration>()) {
+        final name = declaration.declaredElement!.name;
+        target.classCodeOfNameMap[name] = declaration.getCode(rawCode);
+      }
+
+      return;
+    }
+
+    // consider as raw code
+    target.generatedMethodCodeBlock = rawCode;
+  }
+}
 
 typedef ParserClosure<T extends AstNode> = T Function(
     Parser parser, Token token);
 
 // ref: https://github.com/BlackHC/dart_repl/blob/ad568604f41be31fbc8d809d5e0cfa25a6cd5601/lib/src/cell_type.dart#L18
-T? tryParse<T extends AstNode>(String code, ParserClosure<T> parse) {
+T? _tryParse<T extends AstNode>(String code, ParserClosure<T> parse) {
   final reader = CharSequenceReader(code);
   final errorListener = _LoggingErrorListener();
   final featureSet = FeatureSet.latestLanguageVersion();
@@ -36,10 +56,16 @@ T? tryParse<T extends AstNode>(String code, ParserClosure<T> parse) {
   return result;
 }
 
+// TODO change to gather it etc
 class _LoggingErrorListener extends BooleanErrorListener {
   @override
   void onError(AnalysisError error) {
     super.onError(error);
     print('Error when parsing: $error');
   }
+}
+
+extension on AstNode {
+  String getCode(String fullCode) =>
+      fullCode.substring(offset, offset + length);
 }

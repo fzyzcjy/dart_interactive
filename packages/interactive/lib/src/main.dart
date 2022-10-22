@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:interactive/src/execution_workspace_manager.dart';
+import 'package:interactive/src/parser.dart';
 import 'package:interactive/src/reader.dart';
 import 'package:interactive/src/vm_service_wrapper.dart';
 import 'package:interactive/src/workspace_code.dart';
@@ -36,7 +37,8 @@ Future<void> _handleInput(
   WorkspaceCode workspaceCode,
   String rawInput,
 ) async {
-  workspaceCode.generatedMethodCodeBlock = rawInput;
+  print('Phase: Parse');
+  InputParser.parseAndApply(rawInput, workspaceCode);
 
   print('Phase: Generate');
   File(workspaceCodePath).writeAsStringSync(workspaceCode.generate());
