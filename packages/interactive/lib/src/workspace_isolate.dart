@@ -1,7 +1,7 @@
 import 'dart:isolate';
 
-import 'package:interactive/src/vm_service_wrapper.dart';
 import 'package:collection/collection.dart';
+import 'package:interactive/src/vm_service_wrapper.dart';
 import 'package:logging/logging.dart';
 import 'package:vm_service/vm_service.dart' as vm_service;
 
