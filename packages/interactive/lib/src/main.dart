@@ -1,6 +1,7 @@
 import 'package:interactive/src/execution_workspace_manager.dart';
 import 'package:interactive/src/reader.dart';
 import 'package:interactive/src/vm_service_wrapper.dart';
+import 'package:vm_service/vm_service.dart';
 
 Future<void> main() async {
   // TODO should dynamically generate
@@ -26,6 +27,21 @@ Future<void> _handleInput(
 ) async {
   final evaluateCode = TODO;
 
-  await vm.vmService.evaluate(
+  final response = await vm.vmService.evaluate(
       vm.isolateId, executionWorkspaceManager.isolateId, evaluateCode);
+
+  _handleEvaluateResponse(response);
+}
+
+void _handleEvaluateResponse(Response response) {
+  if (response is InstanceRef) {
+    final value = response.valueAsString;
+    if (value != null) {
+      print(value);
+    }
+  } else if (response is ErrorRef) {
+    print('Error: $response');
+  } else {
+    print('Unknown error (response: $response)');
+  }
 }
