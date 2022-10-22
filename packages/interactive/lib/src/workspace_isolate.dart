@@ -50,11 +50,19 @@ extension on VmServiceWrapper {
 Future<Isolate> _spawnUriWithErrorHandling(Uri uri) async {
   final log = Logger('SpawnUriWithErrorHandling');
 
-  final errorPort = RawReceivePort()
-    ..handler = (Object? message) => log.warning('Isolate error: $message');
-  final exitPort = RawReceivePort()
-    ..handler =
-        (Object? message) => log.warning('Isolate exited (message: $message)');
+  late final RawReceivePort errorPort, exitPort;
+  errorPort = RawReceivePort()
+    ..handler = (Object? message) {
+      log.warning('Isolate error: $message');
+    };
+  exitPort = RawReceivePort()
+    ..handler = (Object? message) {
+      log.info('Isolate exited (message: $message)');
+
+      // otherwise see it running forever even after everything finished
+      errorPort.close();
+      exitPort.close();
+    };
 
   return await Isolate.spawnUri(
     uri,
