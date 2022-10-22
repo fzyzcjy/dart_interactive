@@ -91,6 +91,36 @@ void main() {
       ],
     ),
   );
+
+  test(
+    'function uses variable',
+    () => _body(
+      inputs: [
+        'a = 1;',
+        'void f() => a++;',
+        'f()',
+        'a',
+      ],
+      expectOutputs: [
+        '2',
+      ],
+    ),
+  );
+
+  test(
+    'class method uses variable',
+    () => _body(
+      inputs: [
+        'a = 1;',
+        'class C { void f() => a++; }',
+        'C().f()',
+        'a',
+      ],
+      expectOutputs: [
+        '2',
+      ],
+    ),
+  );
 }
 
 Future<void> _body({
