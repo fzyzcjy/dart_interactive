@@ -9,6 +9,9 @@ class CodeGenerator {
     final wrappedCode = '''
 // AUTO-GENERATED, PLEASE DO NOT MODIFY BY HAND
 
+import 'workspace.dart'; // ignore: unused_import
+export 'workspace.dart';
+
 extension ExtDynamic on dynamic {
   void generatedMethod() {
     $rawCode
