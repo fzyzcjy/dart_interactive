@@ -49,14 +49,14 @@ ${imports.join('\n')}
 
 ${classMap.values.join('\n\n')}
 
-${functionMap.values.join('\n\n')}
-
 ${miscDeclarationMap.values.join('\n\n')}
 
 extension ExtDynamic on dynamic {
   Object? generatedMethod() {
     $generatedMethodCodeBlock
   }
+  
+  ${functionMap.values.join('\n\n')}
 }
 ''';
   }

@@ -62,7 +62,7 @@ class InputParser {
         _tryParse(rawCode, (parser, token) => parser.parseExpression(token));
     if (expression != null) {
       return WorkspaceCode.codeBlock(
-        generatedMethodCodeBlock: 'return ($rawCode);',
+        generatedMethodCodeBlock: 'return ($rawCode) as dynamic;',
       );
     }
 
