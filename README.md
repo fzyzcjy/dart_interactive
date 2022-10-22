@@ -8,7 +8,7 @@ TODO
 
 ### Expressions
 
-```
+```dart
 >>> a = 'Hello'; b = ' world!'; 
 >>> '$a, $b'                   
 Hello,  world!
@@ -16,7 +16,7 @@ Hello,  world!
 
 ### Statements
 
-```
+```dart
 >>> print(a)
 Hello
 ```
@@ -27,7 +27,7 @@ Hello
 
 #### Define and redefine
 
-```
+```dart
 >>> String f() => 'old';
 >>> f()
 old
@@ -38,7 +38,7 @@ new
 
 #### Use local and global variables
 
-```
+```dart
 >>> a = 10;
 >>> int f() { int b = 20; a++; b++; return a+b; }
 >>> f() 
@@ -51,7 +51,7 @@ new
 
 #### Define and redefine, preserving states
 
-```
+```dart
 >>> class C { int a = 10; int f() => a * 2; }
 >>> c = C(); print(c.f());
 20
@@ -64,7 +64,7 @@ new
 
 #### Extends and implements
 
-```
+```dart
 >>> class A { int f() => 10; } class B extends A { int f() => 20; }
 >>> A().f() + B().f()
 30
@@ -75,7 +75,7 @@ new
 
 #### Use local variables, fields, and global variables
 
-```
+```dart
 >>> a = 10;
 >>> class C { int b = 20; int f() { int c = 30; a++; b++; c++; return a+b+c; } }
 >>> c = C(); print(c.f()); print(c.f());
@@ -87,7 +87,7 @@ new
 
 Use `!dart pub add package_name`, just like what is done in Python (Jupyter/IPython).
 
-```
+```dart
 >>> join('directory', 'file.txt')
 (...error, since have not added that dependency...)
 >>> !dart pub add path
@@ -108,7 +108,7 @@ directory/file.txt
 
 #### Built-in package
 
-```
+```dart
 >>> Random().nextInt(100)
 (some error outputs here, because it is not imported)
 >>> import "dart:math";
@@ -122,7 +122,7 @@ TODO
 
 ### Multiple in one go
 
-```
+```dart
 >>> int g() => 42; class C { int a = 10; int f() => a * 2; }
 >>> C().f() + g()
 62
@@ -132,7 +132,7 @@ TODO
 
 (The `...`, instead of `>>>`, appears in the two lines, because the package detects it is not finished.)
 
-```
+```dart
 >>> class C {
 ...   int a = 10;
 ... }
@@ -143,7 +143,7 @@ TODO
 
 Use prefix `!`.
 
-```
+```dart
 >>> !whoami
 tom
 >>> !date
