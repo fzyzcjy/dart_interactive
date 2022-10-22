@@ -37,9 +37,20 @@ class Executor {
     vm.dispose();
   }
 
-  Future<void> execute(
-    String rawInput,
-  ) async {
+  Future<void> execute(String rawInput) async {
+    if (rawInput.startsWith(_kExecuteShellPrefix)) {
+      return _executeShell(rawInput);
+    }
+    return _executeCode(rawInput);
+  }
+
+  static const _kExecuteShellPrefix = '!';
+
+  Future<void> _executeShell(String rawInput) async {
+    TODO;
+  }
+
+  Future<void> _executeCode(String rawInput) async {
     log.info('=== Execute rawInput=$rawInput ===');
 
     if (rawInput.trim().isEmpty) return;
