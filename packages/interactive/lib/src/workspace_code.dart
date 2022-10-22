@@ -1,8 +1,4 @@
-import 'package:logging/logging.dart';
-
 class WorkspaceCode {
-  static final log = Logger('WorkspaceCode');
-
   final Set<String> imports;
   final Map<String, String> classMap;
   final Map<String, String> functionMap;
@@ -53,7 +49,7 @@ export 'workspace.dart';
 
 ${imports.join('\n')}
 
-${classMap.values.map(_generateClass).join('\n\n')}
+${classMap.values.join('\n\n')}
 
 ${miscDeclarationMap.values.join('\n\n')}
 
@@ -65,19 +61,6 @@ extension ExtDynamic on dynamic {
   ${functionMap.values.join('\n\n')}
 }
 ''';
-  }
-
-  String _generateClass(String raw) {
-    const kEnding = '}';
-    const kReplacedEnding =
-        '\n\ndynamic noSuchMethod(Invocation invocation) => synthesizedClassNoSuchMethod(invocation);\n}';
-
-    if (!raw.endsWith(kEnding)) {
-      log.info('generateClass skip since not endsWidth "$kEnding" (raw=$raw)');
-      return raw;
-    }
-
-    return raw.substring(0, raw.length - kEnding.length) + kReplacedEnding;
   }
 }
 
