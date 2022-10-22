@@ -2,6 +2,7 @@ import 'package:args/args.dart';
 import 'package:cli_repl/cli_repl.dart';
 import 'package:interactive/src/executor.dart';
 import 'package:interactive/src/reader.dart';
+import 'package:interactive/src/workspace_file_tree.dart';
 import 'package:logging/logging.dart';
 
 Future<void> main(List<String> args) {
@@ -26,7 +27,10 @@ Future<void> run({
 }) async {
   _setUpLogging(verbose ? Level.ALL : Level.WARNING);
 
-  final executor = await Executor.create(writer);
+  final executionWorkspaceDir = await WorkspaceFileTree().create();
+
+  final executor = await Executor.create(writer,
+      executionWorkspaceDir: executionWorkspaceDir);
   try {
     for (final input in reader()) {
       await executor.execute(input);
