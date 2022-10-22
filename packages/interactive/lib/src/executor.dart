@@ -9,7 +9,7 @@ import 'package:logging/logging.dart';
 import 'package:vm_service/vm_service.dart';
 
 class Executor {
-  final log = Logger('Executor');
+  static final log = Logger('Executor');
 
   static const _evaluateCode = 'interactiveRuntimeContext.generatedMethod()';
 
@@ -22,6 +22,9 @@ class Executor {
   Executor._(this.vm, this.workspaceIsolate, this.writer);
 
   static Future<Executor> create(Writer writer) async {
+    // reset to avoid syntax error etc
+    _writeWorkspaceCode(const WorkspaceCode.empty());
+
     final vm = await VmServiceWrapper.create();
     final workspaceIsolate =
         await WorkspaceIsolate.create(vm, executionWorkspaceDir);
@@ -41,11 +44,8 @@ class Executor {
     log.info('Phase: Parse');
     workspaceCode = workspaceCode.merge(inputParser.parse(rawInput));
 
-    log.info('Phase: Generate');
-    final generatedCode = workspaceCode.generate();
-    File('$executionWorkspaceDir/lib/auto_generated.dart')
-        .writeAsStringSync(generatedCode);
-    log.info('generatedCode: $generatedCode');
+    log.info('Phase: Write');
+    _writeWorkspaceCode(workspaceCode);
 
     log.info('Phase: ReloadSources');
     final report = await vm.vmService.reloadSources(workspaceIsolate.isolateId);
@@ -75,5 +75,12 @@ class Executor {
     } else {
       log.warning('Unknown error (response: $response)');
     }
+  }
+
+  static void _writeWorkspaceCode(WorkspaceCode workspaceCode) {
+    final generatedCode = workspaceCode.generate();
+    File('$executionWorkspaceDir/lib/auto_generated.dart')
+        .writeAsStringSync(generatedCode);
+    log.info('generatedCode: $generatedCode');
   }
 }
