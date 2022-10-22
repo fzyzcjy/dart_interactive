@@ -76,10 +76,17 @@ void main() {
       inputs: [
         // should fail (since not imported)
         'Random().nextInt(1)',
+
+        // first import
+        'import "dart:math";',
+        'Random().nextInt(1)',
+
+        // import again should be ok
         'import "dart:math";',
         'Random().nextInt(1)',
       ],
       expectOutputs: [
+        '0',
         '0',
       ],
     ),

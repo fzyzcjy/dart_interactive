@@ -28,8 +28,16 @@ class InputParser {
         return MapEntry(key, declaration.getCode(rawCode));
       }));
 
+      final imports = compilationUnit.directives
+          .whereType<ImportDirective>()
+          .map((e) => e.getCode(rawCode))
+          .toSet();
+
       return WorkspaceCode(
-          declarationMap: declarationMap, generatedMethodCodeBlock: '');
+        declarationMap: declarationMap,
+        imports: imports,
+        generatedMethodCodeBlock: '',
+      );
     }
 
     final expression =
@@ -37,6 +45,7 @@ class InputParser {
     if (expression != null) {
       return WorkspaceCode(
         declarationMap: const {},
+        imports: const {},
         generatedMethodCodeBlock: 'return ($rawCode);',
       );
     }
@@ -44,6 +53,7 @@ class InputParser {
     // fallback as raw code
     return WorkspaceCode(
       declarationMap: const {},
+      imports: const {},
       generatedMethodCodeBlock: rawCode,
     );
   }

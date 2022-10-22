@@ -1,17 +1,21 @@
 class WorkspaceCode {
+  final Set<String> imports;
   final Map<DeclarationKey, String> declarationMap;
   final String generatedMethodCodeBlock;
 
   const WorkspaceCode({
+    required this.imports,
     required this.declarationMap,
     required this.generatedMethodCodeBlock,
   });
 
   const WorkspaceCode.empty()
-      : declarationMap = const {},
+      : imports = const {},
+        declarationMap = const {},
         generatedMethodCodeBlock = '';
 
   WorkspaceCode merge(WorkspaceCode other) => WorkspaceCode(
+        imports: {...imports, ...other.imports},
         declarationMap: {...declarationMap, ...other.declarationMap},
         generatedMethodCodeBlock: other.generatedMethodCodeBlock,
       );
@@ -22,6 +26,8 @@ class WorkspaceCode {
 
 import 'workspace.dart'; // ignore: unused_import
 export 'workspace.dart';
+
+${imports.join('\n')}
 
 ${declarationMap.values.join('\n\n')}
 
