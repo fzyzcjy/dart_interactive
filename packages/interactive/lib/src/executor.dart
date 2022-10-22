@@ -43,7 +43,9 @@ class Executor {
     if (rawInput.trim().isEmpty) return;
 
     log.info('Phase: Parse');
-    workspaceCode = workspaceCode.merge(inputParser.parse(rawInput));
+    final parsedInput = inputParser.parse(rawInput);
+    if (parsedInput == null) return;
+    workspaceCode = workspaceCode.merge(parsedInput);
 
     log.info('Phase: Write');
     _writeWorkspaceCode(workspaceCode);

@@ -16,10 +16,18 @@ import 'package:logging/logging.dart';
 class InputParser {
   final log = Logger('InputParser');
 
-  WorkspaceCode parse(String rawCode) {
+  WorkspaceCode? parse(String rawCode) {
     final compilationUnit = _tryParse(
         rawCode, (parser, token) => parser.parseCompilationUnit(token));
     if (compilationUnit != null) {
+      // #16
+      if (compilationUnit.declarations
+          .whereType<TopLevelVariableDeclaration>()
+          .isNotEmpty) {
+        log.warning('Please use `a=1` instead of `var a=1`');
+        return null;
+      }
+
       final declarationMap =
           Map.fromEntries(compilationUnit.declarations.map((declaration) {
         final key =
