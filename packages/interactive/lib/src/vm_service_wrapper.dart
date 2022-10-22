@@ -6,11 +6,9 @@ import 'package:vm_service/vm_service_io.dart';
 
 class VmServiceWrapper {
   final VmService vmService;
-  final VM vm;
 
   VmServiceWrapper._({
     required this.vmService,
-    required this.vm,
   });
 
   static Future<VmServiceWrapper> create() async {
@@ -24,15 +22,11 @@ class VmServiceWrapper {
         convertToWebSocketUrl(serviceProtocolUrl: serverUri).toString(),
         log: _Log());
 
-    final vm = await vmService.getVM();
-
-    return VmServiceWrapper._(
-      vmService: vmService,
-      vm: vm,
-    );
+    return VmServiceWrapper._(vmService: vmService);
   }
 
-  String get isolateId => vm.isolates!.first.id!;
+  Future<List<String?>> getIsolateIds() async =>
+      (await vmService.getVM()).isolates!.map((e) => e.id).toList();
 
   void dispose() {
     vmService.dispose();
