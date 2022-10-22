@@ -1,0 +1,15 @@
+name: interactive
+description: TODO
+version: 1.0.0
+
+environment:
+  sdk: ">=2.18.0 <3.0.0"
+
+dependencies:
+  analyzer: ^5.0.0
+  cli_repl: ^0.2.3
+  vm_service: ^9.0.0
+
+dev_dependencies:
+  test: ^1.21.6
+
