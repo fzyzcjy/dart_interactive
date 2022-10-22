@@ -3,6 +3,7 @@
 import 'package:analyzer/dart/analysis/features.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/token.dart';
+import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/error/error.dart';
 import 'package:analyzer/error/listener.dart';
 import 'package:analyzer/source/line_info.dart';
@@ -28,20 +29,22 @@ class InputParser {
         return null;
       }
 
-      final classMap = <String, String>{};
+      final classMap = <String, ClassInfo>{};
       final functionMap = <String, String>{};
       final miscDeclarationMap = <String, String>{};
       for (final declaration in compilationUnit.declarations) {
-        final Map<String, String> interestMap;
+        final identifier = declaration.identifier;
         if (declaration is ClassDeclaration) {
-          interestMap = classMap;
+          classMap[identifier] = ClassInfo(
+            rawCode: rawCode,
+            potentialAccessors:
+                _PotentialAccessorParser().parseClassDeclaration(declaration),
+          );
         } else if (declaration is FunctionDeclaration) {
-          interestMap = functionMap;
+          functionMap[identifier] = declaration.getCode(rawCode);
         } else {
-          interestMap = miscDeclarationMap;
+          miscDeclarationMap[identifier] = declaration.getCode(rawCode);
         }
-
-        interestMap[declaration.identifier] = declaration.getCode(rawCode);
       }
 
       final imports = compilationUnit.directives
@@ -123,5 +126,42 @@ extension on CompilationUnitMember {
     if (that is NamedCompilationUnitMember) return '$runtimeType#${that.name}';
     throw UnimplementedError(
         'Not implemented identifier for $runtimeType yet, please make a PR');
+  }
+}
+
+class _PotentialAccessorParser {
+  static final log = Logger('PotentialAccessorParser');
+
+  Set<String> parseClassDeclaration(ClassDeclaration value) {
+    final visitor = _PotentialAccessorVisitor();
+    value.visitChildren(visitor);
+    final potentialAccessors = visitor.potentialAccessors;
+    final fieldNames = _parseFieldNames(value);
+    log.info(
+        'parseClassDeclaration potentialAccessors=$potentialAccessors fieldNames=$fieldNames');
+    return potentialAccessors.difference(fieldNames);
+  }
+
+  Set<String> _parseFieldNames(ClassDeclaration value) => value.members
+      .whereType<FieldDeclaration>()
+      .expand((e) => e.fields.variables)
+      .map((e) => e.name.toString())
+      .toSet();
+}
+
+class _PotentialAccessorVisitor extends GeneralizingAstVisitor<void> {
+  static final log = Logger('PotentialAccessorVisitor');
+
+  final potentialAccessors = <String>{};
+
+  @override
+  void visitExpression(Expression node) {
+    log.warning(
+        'expression of type ${node.runtimeType} not implemented yet (should be quite trivial), please raise issue or PR. node=$node');
+  }
+
+  @override
+  void visitPostfixExpression(PostfixExpression node) {
+    TODO;
   }
 }

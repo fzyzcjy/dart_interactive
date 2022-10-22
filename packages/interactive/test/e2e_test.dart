@@ -184,13 +184,13 @@ void main() {
     () => _body(
       inputs: [
         'a = 1;',
-        'class C { int f() => a++; }',
+        'class C { int f() { var b=a; var c=a+1; a=10; return a++; } }',
         'C().f()',
         'a',
       ],
       expectOutputs: [
         '1',
-        '2',
+        '11',
       ],
     ),
   );

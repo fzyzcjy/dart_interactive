@@ -91,7 +91,7 @@ class ClassInfo {
   static final log = Logger('ClassInfo');
 
   final String rawCode;
-  final List<String> potentialAccessors;
+  final Set<String> potentialAccessors;
 
   ClassInfo({
     required this.rawCode,
