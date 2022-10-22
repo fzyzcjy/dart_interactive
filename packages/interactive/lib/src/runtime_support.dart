@@ -42,3 +42,6 @@ final interactiveRuntimeContext = InteractiveRuntimeContext();
 // convenient name for repl
 // notice this "dynamic" - otherwise cannot access fields
 final dynamic $ = interactiveRuntimeContext;
+
+dynamic synthesizedClassNoSuchMethod(Invocation invocation) =>
+    interactiveRuntimeContext.noSuchMethod(invocation);
