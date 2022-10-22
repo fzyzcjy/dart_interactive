@@ -33,6 +33,7 @@ class Executor {
   }
 
   void dispose() {
+    workspaceIsolate.dispose();
     vm.dispose();
   }
 

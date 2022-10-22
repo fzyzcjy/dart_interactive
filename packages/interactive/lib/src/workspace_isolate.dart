@@ -32,6 +32,10 @@ class WorkspaceIsolate {
 
   Future<vm_service.Isolate> get isolateInfo =>
       vm.vmService.getIsolate(isolateId);
+
+  void dispose() {
+    isolate.kill(priority: Isolate.immediate);
+  }
 }
 
 extension on VmServiceWrapper {
