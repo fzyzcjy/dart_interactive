@@ -3,8 +3,11 @@ import 'dart:mirrors';
 ''';
 
 const kRuntimeSupportCode = r'''
-Future<void> main() async =>
-    await Future<void>.delayed(const Duration(days: 1000));
+Future<void> main() async {
+  while (true) {
+    await Future<void>.delayed(const Duration(milliseconds: 100));
+  }
+}
 
 class InteractiveRuntimeContext {
   final _fieldMap = <Symbol, Object?>{};
