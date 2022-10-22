@@ -69,6 +69,21 @@ void main() {
       ],
     ),
   );
+
+  test(
+    'imports',
+    () => _body(
+      inputs: [
+        // should fail (since not imported)
+        'Random().nextInt(1)',
+        'import "dart:math";',
+        'Random().nextInt(1)',
+      ],
+      expectOutputs: [
+        '0',
+      ],
+    ),
+  );
 }
 
 Future<void> _body({
