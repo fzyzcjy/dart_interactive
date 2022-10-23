@@ -39,6 +39,6 @@ jobs:
         working-directory: packages/${{ matrix.package_name }}
 
       - name: Check format
-        run: dart format --set-exit-if-changed
+        run: dart format --set-exit-if-changed .
         working-directory: packages/${{ matrix.package_name }}
 
