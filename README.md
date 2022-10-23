@@ -2,31 +2,34 @@
 
 ![](https://raw.githubusercontent.com/fzyzcjy/dart_interactive/master/doc/logo.svg)
 
+All sibling languages have a REPL and is quite helpful, while Dart did not (though it was the [8th](https://github.com/dart-lang/sdk/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc) highest-voted request). So here it comes!
+
 ## 🚀 Features
+
+A full-featured REPL (interactive shell), with:
 
 * Use any third-party package freely
 * Auto hot-reload code anywhere, with state preserved
 * Supports full grammar in REPL
-
-In short: A full-featured REPL (interactive shell). For more details, please see section below.
+* Play with existing code side-by-side
 
 ## 📚 Demo
 
 ```dart
-// 1. use 3rd party package ("path")
+// 1. Use 3rd party package ("path")
 >>> !dart pub add path // normal shell command
 >>> import 'package:path/path.dart'; // normal import
 >>> join('directory', 'file.txt') // use it (`join` is a function in `path`)
 directory/file.txt
 
-// 2. auto hot-reload
+// 2. Auto hot-reload
 >>> import 'a.dart';
 >>> myFunc()
 hello, tom
 >>> myFunc() // suppose change content of `a.dart` before calling again
 hello, alex
 
-// 3. supports full grammar
+// 3. Support full grammar
 >>> a = 10;
 >>> int g() => a++; class A {} class B {}
 ... class C extends A implements B {
@@ -35,7 +38,13 @@ hello, alex
 ... }
 >>> C().f()
 74
+
+// 4. Play with existing code side-by-side
+>>> import 'my_file.dart';
+>>> functionInMyFile(); ClassInMyFile(); AllDependenciesInMyPackage(); ... // also freely change implementations in your package with hot reload
 ```
+
+TODO: Implement point "4" within a few hours.
 
 ## 🎼 Getting started
 
@@ -176,6 +185,12 @@ Note: If it has not been added to dependency, please follow instructions above a
 >>> join('directory', 'file.txt')   
 directory/file.txt
 ```
+
+#### Use existing `pubspec.yaml` and/or package
+
+Very trivial to implement (since we are *generating* a blank package and pubspec.yaml in current implementation - just need to point folder to existing package). If someone wants it I will do it.
+
+TODO: implement it within a few hours.
 
 ### Multiple in one go
 
