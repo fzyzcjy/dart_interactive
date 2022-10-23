@@ -1,0 +1,21 @@
+name: Post-release
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: '0,30 * * * *'
+
+jobs:
+  flutter:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: dart-lang/setup-dart@v1.3
+
+      - name: Mimic installation process
+        run: dart pub global activate interactive
+
+      - name: Mimic usage process
+        run: interactive --help
+
