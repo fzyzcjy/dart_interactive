@@ -159,6 +159,26 @@ tom
 2022-10-22 ...outputs...
 ```
 
+## Implementation
+
+General:
+
+* Create a blank package and an isolate as execution workspace
+* Extract imports/classes/functions/etc using analyzer, with replacing when it has the same name, and synthesize a dart file - thus supports rich Dart feature
+* Trigger Dart's hot-reload after the dart file is updated
+* Use analyzer to distinguish expressions/statements/compilation-units and do corresponding transformation
+* The only thing to let Dart VM service to evaluate is `generatedMethod()`, and do not evaluate anything more
+* Adding dependencies is as simple as running standard shell command
+
+As for "global" variables:
+
+* Indeed implemented by a field variable
+* Statements: Make it inside `extension on dynamic { Object? generatedMethod() { ...the statements... } }` to access it seamlessly
+* Functions: Convert functions to extension methods on dynamic to access it seamlessly
+* Classes: Synthesize getters/setters in classes, and delegate to the field variables, whenever there is a potential access to global variable to access it seamlessly
+
+TODO more implementation discussions if people are interested (above is so brief)
+
 ## ✨ Contributors
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
@@ -188,4 +208,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 More specifically, thanks for all these contributions:
 
-* TODO
+* [@mraleph](https://github.com/mraleph): TODO
+* [@BlackHC](https://github.com/BlackHC): TODO
+* [@maks](https://github.com/maks): TODO
+
