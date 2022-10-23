@@ -3,7 +3,21 @@
 
 ![](doc/logo.svg)
 
-Run it (temporary solution, will refactor later): Inside `packages/interactive`, execute `dart run --enable-vm-service bin/interactive.dart`.
+## Getting started
+
+Install (just standard procedure of installing global dart packages):
+
+```
+dart pub global activate interactive
+```
+
+Use (just a normal binary):
+
+```
+interactive
+```
+
+And play with it :)
 
 ## Feature details
 
