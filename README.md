@@ -5,26 +5,49 @@
 ## 🚀 Features
 
 * Use any third-party package freely
-* Auto hot-reload code anywhere, preserving state
+* Auto hot-reload code anywhere, with state preserved
 * Supports full grammar in REPL
 
 In short: A full-featured REPL (interactive shell). For more details, please see section below.
 
 ## 📚 Demo
 
-TODO
+```dart
+// 1. use 3rd party package ("path")
+>>> !dart pub add path // normal shell command
+>>> import 'package:path/path.dart'; // normal import
+>>> join('directory', 'file.txt') // use it (`join` is a function in `path`)
+directory/file.txt
+
+// 2. auto hot-reload
+>>> import 'a.dart';
+>>> myFunc()
+hello, tom
+>>> myFunc() // suppose change content of `a.dart` before calling again
+hello, alex
+
+// 3. supports full grammar
+>>> a = 10;
+>>> int g() => a++; class A {} class B {}
+... class C extends A implements B {
+...   int b = 20;
+...   int f() { int c = 30; a++; b++; c++; return a+b+c+g(); }
+... }
+>>> C().f()
+74
+```
 
 ## 🎼 Getting started
 
 Install (just standard procedure of installing global dart packages):
 
-```
+```shell
 dart pub global activate interactive
 ```
 
 Use (just a normal binary):
 
-```
+```shell
 interactive
 ```
 
