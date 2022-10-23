@@ -15,36 +15,87 @@ A full-featured REPL (interactive shell), with:
 
 ## 📚 Demo
 
+### Demo 1: Demonstrate features
+
+1. Use 3rd party package
+
 ```dart
-// 1. Use 3rd party package ("path")
 >>> !dart pub add path // normal shell command
 >>> import 'package:path/path.dart'; // normal import
->>> join('directory', 'file.txt') // use it (`join` is a function in `path`)
+>>> join('directory', 'file.txt') // use it (`join` is a function in 3rd party package `path`)
 directory/file.txt
+```
 
-// 2. Auto hot-reload
+2. Auto hot-reload
+
+```dart
 >>> import 'a.dart';
 >>> myFunc()
 hello, tom
->>> myFunc() // suppose change content of `a.dart` before calling again
+// ... change content of `a.dart` ...
+>>> myFunc()
 hello, alex
+```
 
-// 3. Support full grammar
+3. Support full grammar
+
+```dart
 >>> a = 10;
+// support rich grammar
 >>> int g() => a++; class A {} class B {}
 ... class C extends A implements B {
 ...   int b = 20;
 ...   int f() { int c = 30; a++; b++; c++; return a+b+c+g(); }
 ... }
->>> C().f()
+>>> c = C()
+>>> c.f()
 74
-
-// 4. Play with existing code side-by-side
->>> import 'my_file.dart';
->>> functionInMyFile(); ClassInMyFile(); AllDependenciesInMyPackage(); ... // also freely change implementations in your package with hot reload
+// support redefine class/method/...
+>>> class C extends A implements B { int b = 20; int f() => b; }
+>>> c.f()
+21
 ```
 
-TODO: Implement point "4" within a few hours.
+### Demo 2: Sample workflow
+
+Surely, you do not *have to* use it like this. It is just a workflow that I personally feel comfortable when working with IPython/Juypter.
+
+Suppose we have `my_app.dart` with some code, probably edited inside an IDE:
+
+```dart
+class Counter {
+  int count = 0;
+  String greet() => 'Hi Tom, you have count $count!';
+}
+```
+
+Play with it a bit:
+
+```dart
+>>> import 'my_app.dart';
+>>> counter = Counter();
+>>> counter.count = 10;
+>>> counter.greet()
+Hi Tom, you have count 10!
+>>> counter.count = 20;
+>>> counter.greet()
+Hi Tom, you have count 20!
+```
+
+Then we realize something wrong and want to change it:
+
+```dart
+(change "Tom" to "Alex" inside `my_app.dart`)
+```
+
+Continue playing with it (auto hot reloaded, and state preserved):
+
+```dart
+>>> counter.greet()
+Hi Alex, you have count 20!
+```
+
+TODO: Implement custom dir within a few hours.
 
 ## 🎼 Getting started
 
@@ -62,7 +113,7 @@ interactive
 
 And play with it :)
 
-## Feature details
+## Detailed functionality list
 
 ### Expressions
 
