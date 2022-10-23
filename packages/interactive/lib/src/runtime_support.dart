@@ -1,7 +1,3 @@
-const kRuntimeSupportImport = '''
-import 'dart:mirrors';
-''';
-
 const kRuntimeSupportCode = r'''
 Future<void> main() async {
   while (true) {
@@ -19,8 +15,7 @@ class InteractiveRuntimeContext {
     }
 
     if (invocation.isSetter) {
-      final name = MirrorSystem.getSymbol(
-          MirrorSystem.getName(invocation.memberName).split('=').first);
+      final name = Symbol(invocation.memberName.name.split('=').first);
       _fieldMap[name] = invocation.positionalArguments.single;
       return null;
     }
@@ -35,6 +30,12 @@ class InteractiveRuntimeContext {
 
   @override
   String toString() => 'InteractiveRuntimeContext(fieldMap: $_fieldMap)';
+}
+
+extension on Symbol {
+  static final _nameRegex = RegExp(r'^Symbol\("(.+)"\)$');
+
+  String get name => _nameRegex.firstMatch(toString())!.group(1)!;
 }
 
 // used by [execution_workspace], not by code *inside* [interactive]

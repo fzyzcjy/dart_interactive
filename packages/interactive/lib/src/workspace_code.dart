@@ -47,7 +47,6 @@ class WorkspaceCode {
 
 import 'package:interactive/src/runtime_support.dart';
 ${imports.join('\n')}
-$kRuntimeSupportImport
 
 $kRuntimeSupportCode
 
