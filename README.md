@@ -1,5 +1,8 @@
 # [dart_interactive](https://github.com/fzyzcjy/dart_interactive)
 
+[![Flutter Package](https://img.shields.io/pub/v/interactive.svg)](https://pub.dev/packages/interactive)
+[![CI](https://github.com/fzyzcjy/dart_interactive/actions/workflows/ci.yaml/badge.svg)](https://github.com/fzyzcjy/dart_interactive/actions/workflows/ci.yaml)
+
 ![](https://raw.githubusercontent.com/fzyzcjy/dart_interactive/master/doc/logo.svg)
 
 A lot of sibling languages have a REPL, and is quite helpful in everyday usage, while Dart did not have it (even though it was the [8th](https://github.com/dart-lang/sdk/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc) highest-voted request). So here it comes!
