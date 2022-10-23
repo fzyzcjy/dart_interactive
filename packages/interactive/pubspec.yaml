@@ -1,5 +1,5 @@
 name: interactive
-description: TODO
+description: REPL (interactive shelL) for Dart, supporting 3rd party packages, hot reload, and full grammar
 version: 1.0.0
 
 environment:
