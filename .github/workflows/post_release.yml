@@ -17,5 +17,5 @@ jobs:
         run: dart pub global activate interactive
 
       - name: Mimic usage process
-        run: interactive --help
+        run: echo "a=1\nprint(a)" | interactive
 
