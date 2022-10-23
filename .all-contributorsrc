@@ -16,6 +16,15 @@
         "doc",
         "ideas"
       ]
+    },
+    {
+      "login": "mraleph",
+      "name": "Vyacheslav Egorov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/131846?v=4",
+      "profile": "http://mrale.ph",
+      "contributions": [
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
