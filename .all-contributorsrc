@@ -25,6 +25,15 @@
       "contributions": [
         "ideas"
       ]
+    },
+    {
+      "login": "maks",
+      "name": "Maksim Lin",
+      "avatar_url": "https://avatars.githubusercontent.com/u/71999?v=4",
+      "profile": "http://manichord.com/blog",
+      "contributions": [
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
