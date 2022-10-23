@@ -8,7 +8,7 @@ on:
 
 jobs:
   flutter:
-    name: ${{ matrix.package_name }}
+    name: ${{ matrix.package_name }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
 
     strategy:
