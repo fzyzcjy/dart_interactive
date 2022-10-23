@@ -1,6 +1,6 @@
 # [dart_interactive](https://github.com/fzyzcjy/dart_interactive)
 
-![](doc/logo.svg)
+![](https://raw.githubusercontent.com/fzyzcjy/dart_interactive/master/doc/logo.svg)
 
 ## Features
 
