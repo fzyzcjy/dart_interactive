@@ -4,11 +4,11 @@
 
 ## 🚀 Features
 
-In short: A full-featured REPL (interactive shell).
+* Use any third-party package freely
+* Auto hot-reload code anywhere, preserving state
+* Supports full grammar in REPL
 
-* Use any third-party packages freely
-* Hot-reload modification to any code in any package, preserving state
-* Supports classes, functions, methods, statements, expressions ... grammar in REPL
+In short: A full-featured REPL (interactive shell). For more details, please see section below.
 
 ## 📚 Demo
 
