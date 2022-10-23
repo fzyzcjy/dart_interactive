@@ -205,6 +205,7 @@ Future<void> _body({
     verbose: true,
     reader: () => inputs,
     writer: actualOutputs.add,
+    directory: null,
   );
   expect(actualOutputs, expectOutputs);
 }

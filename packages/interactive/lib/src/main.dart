@@ -12,6 +12,7 @@ Future<void> main(List<String> args) {
   return run(
     reader: createReader(),
     writer: print,
+    directory: parsedArgs['directory'] as String?,
     verbose: parsedArgs['verbose'] as bool,
   );
 }
@@ -19,6 +20,7 @@ Future<void> main(List<String> args) {
 ArgResults _parseArgs(List<String> args) {
   final parser = ArgParser()
     ..addFlag('verbose', defaultsTo: false, help: 'More logging')
+    ..addOption('directory', abbr: 'd', help: 'Working directory')
     ..addFlag('help', defaultsTo: false, help: 'Show help message');
 
   String usage() => 'Arguments:\n${parser.usage}';
@@ -46,10 +48,12 @@ Future<void> run({
   required bool verbose,
   required Reader reader,
   required Writer writer,
+  required String? directory,
 }) async {
   _setUpLogging(verbose ? Level.ALL : Level.WARNING);
 
-  final workspaceFileTree = await WorkspaceFileTree.create();
+  final workspaceFileTree = await WorkspaceFileTree.create(
+      directory ?? await WorkspaceFileTree.getTempDirectory());
 
   final executor =
       await Executor.create(writer, workspaceFileTree: workspaceFileTree);

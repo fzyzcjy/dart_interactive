@@ -72,6 +72,7 @@ class Counter {
 Play with it a bit:
 
 ```dart
+$ interactive --directory path/to/my/package
 >>> import 'my_app.dart';
 >>> counter = Counter();
 >>> counter.count = 10;
@@ -95,7 +96,12 @@ Continue playing with it (auto hot reloaded, and state preserved):
 Hi Alex, you have count 20!
 ```
 
-TODO: Implement custom dir within a few hours.
+We can also use all dependencies in the package as well, since the REPL code is just like a normal code file in this package.
+
+```dart
+>>> import 'package:whatever_package';
+>>> functionInWhateverPackage();
+```
 
 ## 🎼 Getting started
 
@@ -237,12 +243,6 @@ Note: If it has not been added to dependency, please follow instructions above a
 directory/file.txt
 ```
 
-#### Use existing `pubspec.yaml` and/or package
-
-Very trivial to implement (since we are *generating* a blank package and pubspec.yaml in current implementation - just need to point folder to existing package). If someone wants it I will do it.
-
-TODO: implement it within a few hours.
-
 ### Multiple in one go
 
 ```dart
@@ -271,6 +271,12 @@ Use prefix `!`.
 tom
 >>> !date
 2022-10-22 ...outputs...
+```
+
+### Execute within environment of existing package
+
+```dart
+interactive --directory path/to/your/package
 ```
 
 ## Implementation
