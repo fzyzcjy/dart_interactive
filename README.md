@@ -2,7 +2,7 @@
 
 ![](https://raw.githubusercontent.com/fzyzcjy/dart_interactive/master/doc/logo.svg)
 
-## Features
+## 🚀 Features
 
 In short: A full-featured REPL (interactive shell).
 
@@ -10,11 +10,11 @@ In short: A full-featured REPL (interactive shell).
 * Hot-reload modification to any code in any package, preserving state
 * Supports classes, functions, methods, statements, expressions ... grammar in REPL
 
-## Demo
+## 📚 Demo
 
 TODO
 
-## Getting started
+## 🎼 Getting started
 
 Install (just standard procedure of installing global dart packages):
 
