@@ -7,7 +7,7 @@ repository:
   name: flutter_interactive
 
   # A short description of the repository that will show up on GitHub
-  description: 'REPL (interactive shelL) for Dart, supporting 3rd party packages, hot reload, and full grammar'
+  description: 'REPL (interactive shell) for Dart, supporting 3rd party packages, hot reload, and full grammar'
 
   # A URL with more information about the repository
   homepage: https://github.com/fzyzcjy/dart_interactive
