@@ -1,7 +1,18 @@
-# Interactive shell (REPL) for Dart
-## Introduction
+# [dart_interactive](https://github.com/fzyzcjy/dart_interactive)
 
 ![](doc/logo.svg)
+
+## Features
+
+In short: A full-featured REPL (interactive shell).
+
+* Use any third-party packages freely
+* Hot-reload modification to any code in any package, preserving state
+* Supports classes, functions, methods, statements, expressions ... grammar in REPL
+
+## Demo
+
+TODO
 
 ## Getting started
 
