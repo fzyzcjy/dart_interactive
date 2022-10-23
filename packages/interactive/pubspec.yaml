@@ -1,6 +1,7 @@
 name: interactive
 description: REPL (interactive shelL) for Dart, supporting 3rd party packages, hot reload, and full grammar
 version: 1.0.0
+repository: https://github.com/fzyzcjy/flutter_interactive
 
 environment:
   sdk: ">=2.18.0 <3.0.0"
