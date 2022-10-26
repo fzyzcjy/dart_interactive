@@ -109,9 +109,7 @@ class ClassInfo {
     final accessorCodes =
         potentialAccessors.map(_generateAccessorCode).join('\n');
 
-    final replacedEnding = '$accessorCodes\n\n'
-        'dynamic noSuchMethod(Invocation invocation) => synthesizedClassNoSuchMethod(invocation);\n'
-        '}';
+    final replacedEnding = '$accessorCodes\n}';
 
     return rawCode.substring(0, rawCode.length - kEnding.length) +
         replacedEnding;
@@ -119,7 +117,7 @@ class ClassInfo {
 
   static String _generateAccessorCode(String name) {
     return '''
-dynamic get $name => noSuchMethod(Invocation.getter(#$name));
-set $name(dynamic value) => noSuchMethod(Invocation.setter(#$name, value));''';
+dynamic get $name => synthesizedClassNoSuchMethod(Invocation.getter(#$name));
+set $name(dynamic value) => synthesizedClassNoSuchMethod(Invocation.setter(#$name, value));''';
   }
 }
