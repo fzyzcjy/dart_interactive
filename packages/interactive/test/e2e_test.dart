@@ -208,6 +208,20 @@ void main() {
       expectOutputs: [],
     ),
   );
+
+  test(
+    'Print all types of variables without needing print statement #47',
+    () => _body(
+      inputs: [
+        'class Foo {}',
+        'Foo()',
+      ],
+      expectOutputs: [
+        // should call toString to that object
+        "Instance of 'Foo'",
+      ],
+    ),
+  );
 }
 
 Future<void> _body({
