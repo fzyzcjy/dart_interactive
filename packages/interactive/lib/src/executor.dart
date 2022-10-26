@@ -89,21 +89,19 @@ class Executor {
   }
 
   Future<void> _handleEvaluateResponse(Response response) async {
-    final responseString = response is ObjRef
-        ? await _objRefToString(response)
-        : response.toString();
     if (response is InstanceRef) {
+      final responseString = await _instanceRefToString(response);
       if (responseString != null && responseString != 'null') {
         writer(responseString);
       }
     } else if (response is ErrorRef) {
-      log.warning('Error: $responseString');
+      log.warning('Error: $response');
     } else {
       log.warning('Unknown error (response: $response)');
     }
   }
 
-  Future<String?> _objRefToString(ObjRef object) async {
+  Future<String?> _instanceRefToString(ObjRef object) async {
     // InstanceRef.valueAsString only works on primitive values like String,
     // int, double, etc. so for anything else we have to ask the VM to get the toString value
     final response = await vm.vmService
