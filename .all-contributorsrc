@@ -43,6 +43,15 @@
       "contributions": [
         "ideas"
       ]
+    },
+    {
+      "login": "Keithcat1",
+      "name": "Keithcat1",
+      "avatar_url": "https://avatars.githubusercontent.com/u/47483928?v=4",
+      "profile": "https://github.com/Keithcat1",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
