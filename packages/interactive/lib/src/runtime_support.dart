@@ -1,3 +1,7 @@
+const kRuntimeSupportImport = '''
+import 'dart:io' as io;
+''';
+
 const kRuntimeSupportCode = r'''
 Future<void> main() async {
   while (true) {
@@ -43,4 +47,6 @@ final interactiveRuntimeContext = InteractiveRuntimeContext();
 
 dynamic synthesizedClassNoSuchMethod(Invocation invocation) =>
     interactiveRuntimeContext.noSuchMethod(invocation);
+
+Never exit() => io.exit(0);
 ''';
