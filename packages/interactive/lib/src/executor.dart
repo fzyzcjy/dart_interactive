@@ -83,26 +83,38 @@ class Executor {
     log.info('Phase: Evaluate');
     final isolateInfo = await workspaceIsolate.isolateInfo;
     final targetId = isolateInfo.rootLib!.id!;
-    Response response = await vm.vmService
+    final response = await vm.vmService
         .evaluate(workspaceIsolate.isolateId, targetId, _evaluateCode);
-    if(response is InstanceRef && response.valueAsString == null) {
-      // InstanceRef.valueAsString only works on primitive values like String, int, double ETC, so for anything else we have to ask the VM to get the toString value
-      response = await vm.vmService.evaluate(workspaceIsolate.isolateId, response.id!, "this.toString()");
-    }
-    _handleEvaluateResponse(response);
+    await _handleEvaluateResponse(response);
   }
 
-  void _handleEvaluateResponse(Response response) {
+  Future<void> _handleEvaluateResponse(Response response) async {
+    final responseString = response is ObjRef
+        ? await _objRefToString(response)
+        : response.toString();
     if (response is InstanceRef) {
-      final value = response.valueAsString;
-      if (value != null && value != 'null') {
-        writer(value);
+      if (responseString != null && responseString != 'null') {
+        writer(responseString);
       }
     } else if (response is ErrorRef) {
-      log.warning('Error: $response');
+      log.warning('Error: $responseString');
     } else {
       log.warning('Unknown error (response: $response)');
     }
+  }
+
+  Future<String?> _objRefToString(ObjRef object) async {
+    // InstanceRef.valueAsString only works on primitive values like String,
+    // int, double, etc. so for anything else we have to ask the VM to get the toString value
+    final response = await vm.vmService
+        .evaluate(workspaceIsolate.isolateId, object.id!, 'this.toString()');
+
+    if (response is InstanceRef) {
+      return response.valueAsString;
+    }
+
+    // fail to call toString(), so fallback
+    return object.toString();
   }
 
   static void _writeWorkspaceCode(
