@@ -83,9 +83,12 @@ class Executor {
     log.info('Phase: Evaluate');
     final isolateInfo = await workspaceIsolate.isolateInfo;
     final targetId = isolateInfo.rootLib!.id!;
-    final response = await vm.vmService
+    Response response = await vm.vmService
         .evaluate(workspaceIsolate.isolateId, targetId, _evaluateCode);
-
+    if(response is InstanceRef && response.valueAsString == null) {
+      // InstanceRef.valueAsString only works on primitive values like String, int, double ETC, so for anything else we have to ask the VM to get the toString value
+      response = await vm.vmService.evaluate(workspaceIsolate.isolateId, response.id!, "this.toString()");
+    }
     _handleEvaluateResponse(response);
   }
 
