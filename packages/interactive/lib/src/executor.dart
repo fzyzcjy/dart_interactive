@@ -102,17 +102,23 @@ class Executor {
   }
 
   Future<String?> _instanceRefToString(ObjRef object) async {
-    // InstanceRef.valueAsString only works on primitive values like String,
-    // int, double, etc. so for anything else we have to ask the VM to get the toString value
-    final response = await vm.vmService
-        .evaluate(workspaceIsolate.isolateId, object.id!, 'this.toString()');
+    String fallback() => object.toString();
 
-    if (response is InstanceRef) {
-      return response.valueAsString;
+    try {
+      // InstanceRef.valueAsString only works on primitive values like String,
+      // int, double, etc. so for anything else we have to ask the VM to get the toString value
+      final response = await vm.vmService
+          .evaluate(workspaceIsolate.isolateId, object.id!, 'this.toString()');
+
+      if (response is InstanceRef) {
+        return response.valueAsString;
+      }
+
+      return fallback();
+    } catch(e) {
+      log.info('instanceRefToString failed e=$e');
+      return fallback();
     }
-
-    // fail to call toString(), so fallback
-    return object.toString();
   }
 
   static void _writeWorkspaceCode(
