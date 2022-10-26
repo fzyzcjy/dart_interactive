@@ -2,8 +2,7 @@ import 'package:interactive/src/main.dart';
 import 'package:test/test.dart';
 
 void main() {
-  test('simplest',
-      () => _body(inputs: ['"hi"', '10+20'], expectOutputs: ['hi', '30']));
+  test('simplest', () => _body(inputs: ['"hi"', '10+20'], expectOutputs: ['hi', '30']));
 
   test(
     'read and write variables',
@@ -191,6 +190,21 @@ void main() {
       expectOutputs: [
         '10',
         '11',
+      ],
+    ),
+  );
+
+  test(
+    'Calling undefined getter on self defined class instance should not yield global variable #51',
+    () => _body(
+      inputs: [
+        'a = 1;',
+        'class Foo {}',
+        'f = Foo();',
+        // should not output
+        'f.a',
+      ],
+      expectOutputs: [
       ],
     ),
   );
