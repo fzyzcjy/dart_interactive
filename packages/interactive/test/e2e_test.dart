@@ -225,11 +225,11 @@ void main() {
 
   test(
     'has exit helper method',
-        () => _body(
+    () => _body(
       inputs: [
         // cannot really test executing it - otherwise our test is exited, so only verify
         // the method exists. should test executing it by hand.
-        'print(exit)',
+        r'"$exit"',
       ],
       expectOutputs: [
         "Closure: () => Never from Function 'exit': static.",

@@ -115,7 +115,7 @@ class Executor {
       }
 
       return fallback();
-    } catch(e) {
+    } catch (e) {
       log.info('instanceRefToString failed e=$e');
       return fallback();
     }
