@@ -305,7 +305,7 @@ TODO more implementation discussions if people are interested (above is so brief
 ## ✨ Contributors
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
@@ -321,6 +321,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center"><a href="https://blackhc.net"><img src="https://avatars.githubusercontent.com/u/729312?v=4?s=100" width="100px;" alt="Andreas Kirsch"/><br /><sub><b>Andreas Kirsch</b></sub></a><br /><a href="#ideas-BlackHC" title="Ideas, Planning, & Feedback">🤔</a></td>
       <td align="center"><a href="https://manichord.com/blog"><img src="https://avatars.githubusercontent.com/u/71999?v=4?s=100" width="100px;" alt="Maksim Lin"/><br /><sub><b>Maksim Lin</b></sub></a><br /><a href="#ideas-maks" title="Ideas, Planning, & Feedback">🤔</a></td>
       <td align="center"><a href="https://github.com/Keithcat1"><img src="https://avatars.githubusercontent.com/u/47483928?v=4?s=100" width="100px;" alt="Keithcat1"/><br /><sub><b>Keithcat1</b></sub></a><br /><a href="https://github.com/fzyzcjy/dart_interactive/commits?author=Keithcat1" title="Code">💻</a></td>
+      <td align="center"><a href="https://vegardit.com"><img src="https://avatars.githubusercontent.com/u/426959?v=4?s=100" width="100px;" alt="Sebastian Thomschke"/><br /><sub><b>Sebastian Thomschke</b></sub></a><br /><a href="https://github.com/fzyzcjy/dart_interactive/commits?author=sebthom" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
