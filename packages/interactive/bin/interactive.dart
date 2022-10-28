@@ -12,10 +12,17 @@ Future<void> main(List<String> rawArgs) async {
   }
 }
 
+Future<int> _getUnusedPort() async {
+  final socket = await RawServerSocket.bind(InternetAddress.loopbackIPv4, 0);
+  final port = socket.port;
+  await socket.close();
+  return port;
+}
+
 Future<void> _runWithEnableVmService(List<String> rawArgs) async {
   final executable = Platform.executable;
   final arguments = [
-    '--enable-vm-service',
+    '--enable-vm-service=${await _getUnusedPort()}',
     Platform.script.toString(),
     _vmServiceWasEnabledArg,
     ...rawArgs
