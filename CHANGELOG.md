@@ -1,3 +1,7 @@
+## 1.2.0
+
+* Ensure VM service binds to an unused TCP port #55 (thanks @sebthom)
+
 ## 1.1.0
 
 * Fix calling undefined getter on self defined class instance yields global variable #51
