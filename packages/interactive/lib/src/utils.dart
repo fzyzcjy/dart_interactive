@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import "dart:convert";
 import 'package:logging/logging.dart';
 
 Future<void> executeProcess(
@@ -10,16 +10,15 @@ Future<void> executeProcess(
   final logger = Logger('ExecuteProcess');
 
   logger.info('start `$command` in $workingDirectory');
-
   final process = await Process.start(
-    '/bin/sh',
-    ['-c', command],
+    command,
+    [], // don't bother splitting up the commands since we're passing it to the platforms command shell, it'll do it for us
     workingDirectory: workingDirectory,
     runInShell: true,
   );
 
-  process.stdout.listen((e) => writer(String.fromCharCodes(e)));
-  process.stderr.listen((e) => writer('[STDERR] ${String.fromCharCodes(e)}'));
+  process.stdout.transform(systemEncoding.decoder).listen((e) => writer(e));
+  process.stderr.transform(systemEncoding.decoder).listen((e) => writer('[STDERR] ${e}'));
 
   final exitCode = await process.exitCode;
   logger.info('end exitCode=$exitCode');
