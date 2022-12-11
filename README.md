@@ -5,7 +5,7 @@
 
 ![](https://raw.githubusercontent.com/fzyzcjy/dart_interactive/master/doc/logo.svg)
 
-A lot of sibling languages have a REPL, and is quite helpful in everyday usage, while Dart did not have it (even though it was the [8th](https://github.com/dart-lang/sdk/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc) highest-voted request). So here it comes!
+A lot of sibling languages have a REPL, and is quite helpful in everyday usage, while Dart did not have it (even though it was the [7th](https://github.com/dart-lang/sdk/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc) highest-voted request). So here it comes!
 
 ## 🚀 Features
 
