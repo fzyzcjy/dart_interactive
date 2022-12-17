@@ -7,8 +7,8 @@ class WorkspaceFileTree {
   static final log = Logger('WorkspaceFileTree');
 
   final String directory;
-
-  WorkspaceFileTree._(this.directory);
+  final File packages;
+  WorkspaceFileTree._(this.directory) : packages = File(p.join(directory, ".dart_tool", "package_config.json"));
 
   static Future<WorkspaceFileTree> create(String directory) async {
     await _prepare(directory);
@@ -35,6 +35,12 @@ class WorkspaceFileTree {
     if (!pathPubspecYaml.existsSync()) {
       pathPubspecYaml.writeAsStringSync(_kDefaultPubspecYaml);
     }
+    await Process.run(
+    "dart",
+    ["pub", "get", "--offline"],
+    runInShell: true,
+    workingDirectory: dir,
+  );
   }
 }
 
