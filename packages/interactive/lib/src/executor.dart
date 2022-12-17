@@ -73,7 +73,7 @@ class Executor {
     _writeWorkspaceCode(workspaceCode, workspaceFileTree);
 
     log.info('Phase: ReloadSources');
-    final report = await vm.vmService.reloadSources(workspaceIsolate.isolateId);
+    final report = await vm.vmService.reloadSources(workspaceIsolate.isolateId, packagesUri: workspaceFileTree.packages.uri.toString());
     if (report.success != true) {
       log.warning(
           'Error: Hot reload failed, maybe because code has syntax error?');
