@@ -339,3 +339,4 @@ More specifically, thanks for all these contributions:
 * [@maks](https://github.com/maks): Prior [prototype](https://github.com/maks/dart_repl) as [an update-to-Dart-2](https://github.com/dart-lang/sdk/issues/39965#issuecomment-1287953021) of @BlackHC's prototype.
 * [@Keithcat1](https://github.com/Keithcat1): Partiall fix printing object.
 * [@sebthom](https://github.com/sebthom): Use unused TCP port.
+* [@arcanemachine](https://github.com/arcanemachine): Pin dependency.
