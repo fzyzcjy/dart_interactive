@@ -1,3 +1,7 @@
+## 1.2.1
+
+* Pin dependency so that package works again #60 (thanks @arcanemachine)
+
 ## 1.2.0
 
 * Ensure VM service binds to an unused TCP port #55 (thanks @sebthom)
