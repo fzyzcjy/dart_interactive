@@ -1,18 +1,20 @@
-import 'package:cli_repl/cli_repl.dart';
+import "dart:io";
+import "Dart:convert";
+
 import 'package:interactive/src/main.dart';
 
-Reader createReader() => Repl(
-      prompt: '>>> ',
-      continuation: '... ',
-      validator: replValidator,
-    ).run;
+Reader createReader() => stdin.transform(systemEncoding.decoder).transform(const LineSplitter());
+
+
+
+
 
 const _leftBrackets = ['{', '[', '('];
 const _rightToLeftBracketMap = {'}': '{', ']': '[', ')': '('};
 
 bool replValidator(String text) {
   // when having a full blank line, forcefully say yes
-  if (text.split('\n').contains('')) return true;
+  if (text.isEmpty) return true;
 
   final stack = <String>[];
   for (var i = 0; i < text.length; ++i) {

@@ -1,3 +1,4 @@
+import "dart:async";
 import 'dart:io';
 
 import 'package:args/args.dart';
@@ -41,7 +42,7 @@ ArgResults _parseArgs(List<String> args) {
   return parsedArgs;
 }
 
-typedef Reader = Iterable<String> Function();
+typedef Reader = Stream<String>;
 typedef Writer = void Function(String);
 
 Future<void> run({
@@ -57,10 +58,27 @@ Future<void> run({
 
   final executor =
       await Executor.create(writer, workspaceFileTree: workspaceFileTree);
+  const prompt = ">>>";
+  const continuation = "...";
   try {
-    for (final input in reader()) {
-      await executor.execute(input);
+    final statement = StringBuffer();
+    // we can't just do await for(final line in reader) because we need to print the prompt / continuation before the line the user is typing, not after the line has already been inputted
+    final iter = StreamIterator(reader);
+    while(true) {
+      stdout.write(statement.isEmpty ? prompt : continuation);
+      if(!await iter.moveNext()) {
+        break;
+      }
+      final line = iter.current;
+      statement.writeln(line);
+      if (replValidator(statement.toString())) {
+        await executor.execute(statement.toString());
+        statement.clear();
+      } else {
+        statement.writeln();
+      }
     }
+    print("Done");
   } finally {
     executor.dispose();
     workspaceFileTree.dispose();
