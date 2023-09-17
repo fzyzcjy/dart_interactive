@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:isolate';
 
 import 'package:collection/collection.dart';
+import 'package:interactive/src/utils.dart';
 import 'package:interactive/src/vm_service_wrapper.dart';
 import 'package:interactive/src/workspace_file_tree.dart';
 import 'package:logging/logging.dart';
@@ -91,9 +92,11 @@ Future<Isolate> _spawnUriWithErrorHandling(
 }
 
 Future<void> _runPubGet({required String workingDirectory}) async {
+  final cmd = getCrossPlatformCommand('dart pub get');
+
   final process = await Process.start(
-    '/bin/sh',
-    ['-c', 'dart pub get'],
+    cmd.executable,
+    cmd.arguments,
     workingDirectory: workingDirectory,
     runInShell: true,
   );
