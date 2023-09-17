@@ -1,5 +1,6 @@
 ## Unreleased
 
+* Fix some packages imports and fix windows hot reload problems #89 (thanks @davidmartos96)
 * Fix dart analyze #90 (thanks @davidmartos96)
 
 ## 1.2.1
