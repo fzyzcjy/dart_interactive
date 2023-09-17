@@ -22,7 +22,7 @@ class WorkspaceIsolate {
       VmServiceWrapper vm, WorkspaceFileTree workspaceFileTree) async {
     final isolateIdsBefore = await vm.getIsolateIds();
 
-    // Run pub get so that the package_config.json is generated and packages 
+    // Run pub get so that the package_config.json is generated and packages
     // are resolved correctly in the interpreter
     await _runPubGet(workingDirectory: workspaceFileTree.directory);
 
