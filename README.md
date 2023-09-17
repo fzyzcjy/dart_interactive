@@ -305,7 +305,7 @@ TODO more implementation discussions if people are interested (above is so brief
 ## ✨ Contributors
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
@@ -316,13 +316,16 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tbody>
     <tr>
-      <td align="center"><a href="https://github.com/fzyzcjy"><img src="https://avatars.githubusercontent.com/u/5236035?v=4?s=100" width="100px;" alt="fzyzcjy"/><br /><sub><b>fzyzcjy</b></sub></a><br /><a href="https://github.com/fzyzcjy/dart_interactive/commits?author=fzyzcjy" title="Code">💻</a> <a href="https://github.com/fzyzcjy/dart_interactive/commits?author=fzyzcjy" title="Documentation">📖</a> <a href="#ideas-fzyzcjy" title="Ideas, Planning, & Feedback">🤔</a></td>
-      <td align="center"><a href="https://mrale.ph"><img src="https://avatars.githubusercontent.com/u/131846?v=4?s=100" width="100px;" alt="Vyacheslav Egorov"/><br /><sub><b>Vyacheslav Egorov</b></sub></a><br /><a href="#ideas-mraleph" title="Ideas, Planning, & Feedback">🤔</a></td>
-      <td align="center"><a href="https://blackhc.net"><img src="https://avatars.githubusercontent.com/u/729312?v=4?s=100" width="100px;" alt="Andreas Kirsch"/><br /><sub><b>Andreas Kirsch</b></sub></a><br /><a href="#ideas-BlackHC" title="Ideas, Planning, & Feedback">🤔</a></td>
-      <td align="center"><a href="https://manichord.com/blog"><img src="https://avatars.githubusercontent.com/u/71999?v=4?s=100" width="100px;" alt="Maksim Lin"/><br /><sub><b>Maksim Lin</b></sub></a><br /><a href="#ideas-maks" title="Ideas, Planning, & Feedback">🤔</a></td>
-      <td align="center"><a href="https://github.com/Keithcat1"><img src="https://avatars.githubusercontent.com/u/47483928?v=4?s=100" width="100px;" alt="Keithcat1"/><br /><sub><b>Keithcat1</b></sub></a><br /><a href="https://github.com/fzyzcjy/dart_interactive/commits?author=Keithcat1" title="Code">💻</a></td>
-      <td align="center"><a href="https://vegardit.com"><img src="https://avatars.githubusercontent.com/u/426959?v=4?s=100" width="100px;" alt="Sebastian Thomschke"/><br /><sub><b>Sebastian Thomschke</b></sub></a><br /><a href="https://github.com/fzyzcjy/dart_interactive/commits?author=sebthom" title="Code">💻</a></td>
-      <td align="center"><a href="https://github.com/arcanemachine"><img src="https://avatars.githubusercontent.com/u/3351767?v=4?s=100" width="100px;" alt="arcanemachine"/><br /><sub><b>arcanemachine</b></sub></a><br /><a href="https://github.com/fzyzcjy/dart_interactive/commits?author=arcanemachine" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/fzyzcjy"><img src="https://avatars.githubusercontent.com/u/5236035?v=4?s=100" width="100px;" alt="fzyzcjy"/><br /><sub><b>fzyzcjy</b></sub></a><br /><a href="https://github.com/fzyzcjy/dart_interactive/commits?author=fzyzcjy" title="Code">💻</a> <a href="https://github.com/fzyzcjy/dart_interactive/commits?author=fzyzcjy" title="Documentation">📖</a> <a href="#ideas-fzyzcjy" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://mrale.ph"><img src="https://avatars.githubusercontent.com/u/131846?v=4?s=100" width="100px;" alt="Vyacheslav Egorov"/><br /><sub><b>Vyacheslav Egorov</b></sub></a><br /><a href="#ideas-mraleph" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://blackhc.net"><img src="https://avatars.githubusercontent.com/u/729312?v=4?s=100" width="100px;" alt="Andreas Kirsch"/><br /><sub><b>Andreas Kirsch</b></sub></a><br /><a href="#ideas-BlackHC" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://manichord.com/blog"><img src="https://avatars.githubusercontent.com/u/71999?v=4?s=100" width="100px;" alt="Maksim Lin"/><br /><sub><b>Maksim Lin</b></sub></a><br /><a href="#ideas-maks" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Keithcat1"><img src="https://avatars.githubusercontent.com/u/47483928?v=4?s=100" width="100px;" alt="Keithcat1"/><br /><sub><b>Keithcat1</b></sub></a><br /><a href="https://github.com/fzyzcjy/dart_interactive/commits?author=Keithcat1" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://vegardit.com"><img src="https://avatars.githubusercontent.com/u/426959?v=4?s=100" width="100px;" alt="Sebastian Thomschke"/><br /><sub><b>Sebastian Thomschke</b></sub></a><br /><a href="https://github.com/fzyzcjy/dart_interactive/commits?author=sebthom" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/arcanemachine"><img src="https://avatars.githubusercontent.com/u/3351767?v=4?s=100" width="100px;" alt="arcanemachine"/><br /><sub><b>arcanemachine</b></sub></a><br /><a href="https://github.com/fzyzcjy/dart_interactive/commits?author=arcanemachine" title="Code">💻</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/davidmartos96"><img src="https://avatars.githubusercontent.com/u/22084723?v=4?s=100" width="100px;" alt="David Martos"/><br /><sub><b>David Martos</b></sub></a><br /><a href="https://github.com/fzyzcjy/dart_interactive/commits?author=davidmartos96" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
