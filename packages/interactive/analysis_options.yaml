@@ -13,9 +13,6 @@ analyzer:
     missing_return: error
     unrelated_type_equality_checks: error
     parameter_assignments: warning
-  strong-mode:
-    implicit-casts: false
-    implicit-dynamic: false
 
 linter:
   rules:
