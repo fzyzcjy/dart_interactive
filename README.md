@@ -340,7 +340,7 @@ More specifically, thanks for all these contributions:
 * [@mraleph](https://github.com/mraleph) (Dart team): [Pointing](https://github.com/dart-lang/sdk/issues/39965#issuecomment-854854283) out Dart exposes hot reload and expression evaluation.
 * [@BlackHC](https://github.com/BlackHC): Prior [proof of concept](https://github.com/BlackHC/dart_repl) and [article](https://medium.com/dartlang/evolving-dart-repl-poc-233440a35e1f) on the problem of creating a REPL.
 * [@maks](https://github.com/maks): Prior [prototype](https://github.com/maks/dart_repl) as [an update-to-Dart-2](https://github.com/dart-lang/sdk/issues/39965#issuecomment-1287953021) of @BlackHC's prototype.
-* [@Keithcat1](https://github.com/Keithcat1): Partiall fix printing object.
+* [@davidmartos96](https://github.com/davidmartos96): Fix package import bug. Fix windows hot reload bug. Update analyze.
+* [@Keithcat1](https://github.com/Keithcat1): Partially fix printing object.
 * [@sebthom](https://github.com/sebthom): Use unused TCP port.
 * [@arcanemachine](https://github.com/arcanemachine): Pin dependency.
-* [@davidmartos96](https://github.com/davidmartos96): Update analyze.
