@@ -73,7 +73,18 @@ class Executor {
     _writeWorkspaceCode(workspaceCode, workspaceFileTree);
 
     log.info('Phase: ReloadSources');
-    final report = await vm.vmService.reloadSources(workspaceIsolate.isolateId);
+    bool? forceReload;
+    if (Platform.isWindows) {
+      // There appears to be an issue on the Dart SDK >= 3.0 where the hot reload doesn't work if
+      // the modified time of the file is the same with seconds precision
+      // Possibly related to: https://github.com/dart-lang/sdk/issues/51937
+      // Force=true means that the modification time of the source files is not considered.
+      forceReload = true;
+    }
+    final report = await vm.vmService.reloadSources(
+      workspaceIsolate.isolateId,
+      force: forceReload,
+    );
     if (report.success != true) {
       log.warning(
           'Error: Hot reload failed, maybe because code has syntax error?');
