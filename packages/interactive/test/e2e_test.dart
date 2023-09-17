@@ -236,12 +236,72 @@ void main() {
       ],
     ),
   );
+
+  test(
+    'package imports',
+    () => _bodyCustomExpect(
+      inputs: [
+        '!dart pub add path:1.8.3',
+        '"after pub add"', // Custom split point
+        'import "package:path/path.dart";',
+        'posix.join("a", "b")',
+      ],
+      customExpect: (actual) {
+        expect(actual.first.trimRight(), 'Resolving dependencies...');
+        final afterAdd = _getLinesAfter(actual, 'after pub add');
+
+        expect(afterAdd, [
+          'a/b',
+        ]);
+      },
+    ),
+  );
+
+  test(
+    // Test for more "complex" packge dependencies.
+    // See here for context: https://github.com/fzyzcjy/dart_interactive/issues/88
+    'package imports (_fe_analyzer_shared dependency)',
+    () => _bodyCustomExpect(
+      inputs: [
+        '!dart pub add http:1.0.0',
+        '"after pub add"', // Custom split point
+        'import "package:http/http.dart";',
+        'get', // Display the http get function
+        'import "package:async/async.dart" as async_lib;', // Transitive dependency + alias
+        'async_lib.AsyncCache', // Display a class from the transitive dependency
+      ],
+      customExpect: (actual) {
+        expect(actual.first.trimRight(), 'Resolving dependencies...');
+        final afterAdd = _getLinesAfter(actual, 'after pub add');
+
+        expect(afterAdd, [
+          "Closure: (Uri, {Map<String, String>? headers}) => Future<Response> from Function 'get': static.",
+          'AsyncCache<dynamic>',
+        ]);
+      },
+    ),
+  );
 }
 
 Future<void> _body({
   required List<String> inputs,
   required List<String> expectOutputs,
 }) async {
+  final actualOutputs = await _getOutputs(inputs);
+  expect(actualOutputs, expectOutputs);
+}
+
+/// Useful for tests where we want to ignore certain non-deterministic outputs, like fetching packages,
+/// where a transitive dependency may be out of date in the future
+Future<void> _bodyCustomExpect({
+  required List<String> inputs,
+  required void Function(List<String> actual) customExpect,
+}) async {
+  final actualOutputs = await _getOutputs(inputs);
+  customExpect(actualOutputs);
+}
+
+Future<List<String>> _getOutputs(List<String> inputs) async {
   final actualOutputs = <String>[];
   await run(
     verbose: true,
@@ -249,5 +309,16 @@ Future<void> _body({
     writer: actualOutputs.add,
     directory: null,
   );
-  expect(actualOutputs, expectOutputs);
+  return actualOutputs;
+}
+
+List<String> _getLinesAfter(List<String> lines, String line) {
+  final idx = lines.indexOf(line);
+  if (idx == -1) {
+    fail('Expected to find $line in $lines');
+  }
+  if (idx == lines.length - 1) {
+    return [];
+  }
+  return lines.sublist(idx + 1);
 }

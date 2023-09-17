@@ -11,9 +11,11 @@ Future<void> executeProcess(
 
   logger.info('start `$command` in $workingDirectory');
 
+  final cmd = getCrossPlatformCommand(command);
+
   final process = await Process.start(
-    '/bin/sh',
-    ['-c', command],
+    cmd.executable,
+    cmd.arguments,
     workingDirectory: workingDirectory,
     runInShell: true,
   );
@@ -27,4 +29,28 @@ Future<void> executeProcess(
   if (exitCode != 0) {
     logger.warning('Process execution failed (exitCode=$exitCode)');
   }
+}
+
+Command getCrossPlatformCommand(String command) {
+  final String executable;
+  final List<String> arguments;
+  if (Platform.isWindows) {
+    executable = 'cmd';
+    arguments = ['/c', command];
+  } else {
+    executable = '/bin/sh';
+    arguments = ['-c', command];
+  }
+
+  return Command(
+    executable: executable,
+    arguments: arguments,
+  );
+}
+
+class Command {
+  final String executable;
+  final List<String> arguments;
+
+  Command({required this.executable, required this.arguments});
 }
