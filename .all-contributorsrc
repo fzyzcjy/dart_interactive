@@ -70,6 +70,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "davidmartos96",
+      "name": "David Martos",
+      "avatar_url": "https://avatars.githubusercontent.com/u/22084723?v=4",
+      "profile": "https://github.com/davidmartos96",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -77,5 +86,6 @@
   "repoType": "github",
   "repoHost": "https://github.com",
   "projectName": "dart_interactive",
-  "projectOwner": "fzyzcjy"
+  "projectOwner": "fzyzcjy",
+  "commitType": "docs"
 }
