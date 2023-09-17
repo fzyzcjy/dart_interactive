@@ -244,7 +244,7 @@ void main() {
         '!dart pub add path:1.8.3',
         '"after pub add"', // Custom split point
         'import "package:path/path.dart";',
-        'join("a", "b")',
+        'posix.join("a", "b")',
       ],
       customExpect: (actual) {
         expect(actual.first.trimRight(), 'Resolving dependencies...');
