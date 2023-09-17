@@ -247,7 +247,7 @@ void main() {
         'join("a", "b")',
       ],
       customExpect: (actual) {
-        expect(actual.first, 'Resolving dependencies...\n');
+        expect(actual.first.trimRight(), 'Resolving dependencies...');
         final afterAdd = _getLinesAfter(actual, 'after pub add');
 
         expect(afterAdd, [
@@ -271,7 +271,7 @@ void main() {
         'async_lib.AsyncCache', // Display a class from the transitive dependency
       ],
       customExpect: (actual) {
-        expect(actual.first, 'Resolving dependencies...\n');
+        expect(actual.first.trimRight(), 'Resolving dependencies...');
         final afterAdd = _getLinesAfter(actual, 'after pub add');
 
         expect(afterAdd, [
