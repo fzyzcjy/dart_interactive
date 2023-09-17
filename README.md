@@ -343,3 +343,4 @@ More specifically, thanks for all these contributions:
 * [@Keithcat1](https://github.com/Keithcat1): Partiall fix printing object.
 * [@sebthom](https://github.com/sebthom): Use unused TCP port.
 * [@arcanemachine](https://github.com/arcanemachine): Pin dependency.
+* [@davidmartos96](https://github.com/davidmartos96): Update analyze.
