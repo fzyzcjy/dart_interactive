@@ -1,3 +1,7 @@
+## Unreleased
+
+* Fix dart analyze #90 (thanks @davidmartos96)
+
 ## 1.2.1
 
 * Pin dependency so that package works again #60 (thanks @arcanemachine)
