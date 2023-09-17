@@ -79,6 +79,7 @@ class Executor {
       // the modified time of the file is the same with seconds precision
       // Possibly related to: https://github.com/dart-lang/sdk/issues/51937
       // Force=true means that the modification time of the source files is not considered.
+      // See https://github.com/fzyzcjy/dart_interactive/pull/89#issuecomment-1722447792 for details
       forceReload = true;
     }
     final report = await vm.vmService.reloadSources(
