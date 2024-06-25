@@ -15,6 +15,8 @@ A full-featured REPL (interactive shell), with:
 * Auto hot-reload code anywhere, with state preserved
 * Supports full grammar in REPL
 * Play with existing code side-by-side
+* Support Linux and other *nixes (MacOS included?)
+* Limited compatiblity with Windows terminal, but works just fine in WSL (see [Known Issues](#known-issues))
 
 ## 📚 Demo
 
@@ -301,6 +303,29 @@ As for "global" variables:
 * Classes: Synthesize getters/setters in classes, and delegate to the field variables, whenever there is a potential access to global variable to access it seamlessly
 
 TODO more implementation discussions if people are interested (above is so brief)
+
+### Known Issues
+* Command history is not saved between sessions.
+
+* Some mistakes will produce `Hot reload failed` instead of the actual error, sometimes breaking the next command, sometimes the whole REPL.  If you can't evaluate something simple as "1" after two tries, you can restart quickly with Ctrl/Cmd+D, Up Arrow and Enter in most terminals:
+```
+>>> 1
+1
+>>> print() # oops, argument is not optional
+[WARNING 2024-03-13 01:50:18.419137] Error: Hot reload failed, maybe because code has syntax error?
+>>> 1
+[WARNING 2024-03-13 01:50:20.464239] Error: Hot reload failed, maybe because code has syntax error?
+>>> 1
+[WARNING 2024-03-13 01:50:20.464239] Error: Hot reload failed, maybe because code has syntax error?
+```
+
+There are a number of issues that make for a limited experience in Windows, which vary from terminal to terminal, but specially:
+1. Backspace doesn't work.
+2. Can't move on the command line with arrows nor Ctrl+B/F.
+3. No command history with arrows or ^P/^N either.
+
+so you're better off heading to your closes *nix, or [installing Linux inside Windows with WSL](https://learn.microsoft.com/en-us/windows/wsl/install).
+
 
 ## ✨ Contributors
 
