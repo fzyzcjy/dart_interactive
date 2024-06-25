@@ -15,7 +15,7 @@ A full-featured REPL (interactive shell), with:
 * Auto hot-reload code anywhere, with state preserved
 * Supports full grammar in REPL
 * Play with existing code side-by-side
-* Support Linux and other *nixes (MacOS included?)
+* Support Linux and other *nixes such as MacOS
 * Limited compatiblity with Windows terminal, but works just fine in WSL (see [Known Issues](#known-issues))
 
 ## 📚 Demo
