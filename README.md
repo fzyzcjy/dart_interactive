@@ -302,7 +302,7 @@ As for "global" variables:
 
 TODO more implementation discussions if people are interested (above is so brief)
 
-### Known Issues
+## Known Issues
 
 #### Windows non-WSL terminal
 
