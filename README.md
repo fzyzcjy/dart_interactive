@@ -15,8 +15,6 @@ A full-featured REPL (interactive shell), with:
 * Auto hot-reload code anywhere, with state preserved
 * Supports full grammar in REPL
 * Play with existing code side-by-side
-* Support Linux and other *nixes such as MacOS
-* Limited compatiblity with Windows terminal, but works just fine in WSL (see [Known Issues](#known-issues))
 
 ## 📚 Demo
 
@@ -305,13 +303,28 @@ As for "global" variables:
 TODO more implementation discussions if people are interested (above is so brief)
 
 ### Known Issues
-* Command history is not saved between sessions.
 
-* Some mistakes will produce `Hot reload failed` instead of the actual error, sometimes breaking the next command, sometimes the whole REPL.  If you can't evaluate something simple as "1" after two tries, you can restart quickly with Ctrl/Cmd+D, Up Arrow and Enter in most terminals:
+#### Windows non-WSL terminal
+
+Because of Dart's bug (https://github.com/dart-lang/sdk/issues/48329), the upstream `cli_repl` package does not work well on Windows. The issues vary from terminal to terminal, but generally speaking, backspace doesn't work, we cannot move on the command line with arrows nor Ctrl+B/F, and no command history with arrows or ^P/^N either.
+
+Since `dart_interactive` depends on it, it is suggested to use [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) or *nix.
+
+#### Command history
+
+Command history is not yet saved between sessions. However, this is implementable, and feel free to create an issue or PR.
+
+#### Some errors will lead to `Hot reload failed`
+
+Currently, some user mistakes will produce `Hot reload failed` error instead of the actual error. It will break the next command or the whole REPL. If you can't evaluate something simple as "1" after two tries, you can restart quickly with Ctrl/Cmd+D, Up Arrow and Enter in most terminals.
+
+<details>
+<summary>Example</summary>
+
 ```
 >>> 1
 1
->>> print() # oops, argument is not optional
+>>> print() // <----- oops, argument is not optional
 [WARNING 2024-03-13 01:50:18.419137] Error: Hot reload failed, maybe because code has syntax error?
 >>> 1
 [WARNING 2024-03-13 01:50:20.464239] Error: Hot reload failed, maybe because code has syntax error?
@@ -319,13 +332,7 @@ TODO more implementation discussions if people are interested (above is so brief
 [WARNING 2024-03-13 01:50:20.464239] Error: Hot reload failed, maybe because code has syntax error?
 ```
 
-There are a number of issues that make for a limited experience in Windows, which vary from terminal to terminal, but specially:
-1. Backspace doesn't work.
-2. Can't move on the command line with arrows nor Ctrl+B/F.
-3. No command history with arrows or ^P/^N either.
-
-so you're better off heading to your closes *nix, or [installing Linux inside Windows with WSL](https://learn.microsoft.com/en-us/windows/wsl/install).
-
+</details>
 
 ## ✨ Contributors
 
