@@ -115,6 +115,11 @@ class Executor {
   }
 
   Future<String?> _instanceRefToString(ObjRef object) async {
+    if (object is InstanceRef) {
+      if (object.kind == InstanceKind.kNull) return null;
+      // ... can add more here
+    }
+
     String fallback() => object.toString();
 
     try {
