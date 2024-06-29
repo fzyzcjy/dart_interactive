@@ -337,7 +337,7 @@ Currently, some user mistakes will produce `Hot reload failed` error instead of 
 ## ✨ Contributors
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
@@ -358,6 +358,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/davidmartos96"><img src="https://avatars.githubusercontent.com/u/22084723?v=4?s=100" width="100px;" alt="David Martos"/><br /><sub><b>David Martos</b></sub></a><br /><a href="https://github.com/fzyzcjy/dart_interactive/commits?author=davidmartos96" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Chematronix"><img src="https://avatars.githubusercontent.com/u/6773039?v=4?s=100" width="100px;" alt="Chematronix"/><br /><sub><b>Chematronix</b></sub></a><br /><a href="https://github.com/fzyzcjy/dart_interactive/commits?author=Chematronix" title="Code">💻</a> <a href="https://github.com/fzyzcjy/dart_interactive/commits?author=Chematronix" title="Documentation">📖</a></td>
     </tr>
   </tbody>
 </table>
