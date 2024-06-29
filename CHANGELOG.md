@@ -1,3 +1,7 @@
+## Unreleased
+
+* Improve output messages (remove some InstanceRef things) #97
+
 ## 1.3.0
 
 * Fix some packages imports and fix windows hot reload problems #89 (thanks @davidmartos96)
