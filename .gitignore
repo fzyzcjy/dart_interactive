@@ -1,3 +1,6 @@
 .DS_Store
 doc/logo.png
 .idea
+
+# FVM Version Cache
+.fvm/
