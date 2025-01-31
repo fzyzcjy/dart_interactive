@@ -1,3 +1,7 @@
+## 1.4.1
+
+* Bump to Dart 3.3.0+, analyzer 7+ #100 (thanks @jheld)
+
 ## 1.4.0
 
 * Improve output messages (remove some InstanceRef things) #97
