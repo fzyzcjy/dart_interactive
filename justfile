@@ -2,7 +2,7 @@ export_logo:
     /Applications/Inkscape.app/Contents/MacOS/inkscape --export-filename=doc/logo.png doc/logo.svg -w 1280 -h 640
 
 publish_all:
-    (cd packages/interactive && flutter pub publish --force --server=https://pub.dartlang.org)
+    (cd packages/interactive && fvm flutter pub publish --force --server=https://pub.dartlang.org)
 
 release old_version new_version:
     grep -q 'version: {{old_version}}' packages/interactive/pubspec.yaml
