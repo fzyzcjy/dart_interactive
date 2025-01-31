@@ -1,9 +1,12 @@
 // ignore_for_file: implementation_imports
 
+import 'dart:io';
+
 import 'package:analyzer/dart/analysis/features.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/token.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/error/error.dart';
 import 'package:analyzer/error/listener.dart';
 import 'package:analyzer/source/line_info.dart';
@@ -13,6 +16,7 @@ import 'package:analyzer/src/generated/parser.dart';
 import 'package:analyzer/src/string_source.dart';
 import 'package:interactive/src/workspace_code.dart';
 import 'package:logging/logging.dart';
+import 'package:pub_semver/pub_semver.dart';
 
 class InputParser {
   final log = Logger('InputParser');
@@ -37,8 +41,8 @@ class InputParser {
         if (declaration is ClassDeclaration) {
           classMap[identifier] = ClassInfo(
             rawCode: declaration.getCode(rawCode),
-            potentialAccessors:
-                _PotentialAccessorParser().parseClassDeclaration(declaration),
+            potentialAccessors: _PotentialAccessorParser()
+                .parseClassDeclaration(declaration as ClassDeclaration),
           );
         } else if (declaration is FunctionDeclaration) {
           functionMap[identifier] = declaration.getCode(rawCode);
@@ -91,8 +95,13 @@ T? _tryParse<T extends AstNode>(String code, ParserClosure<T> parse) {
     ..configureFeatures(
         featureSetForOverriding: featureSet, featureSet: featureSet);
   final token = scanner.tokenize();
+  // actual version via sem ver is before the first space. so, we leverage the runtime's version, ignoring override currently.
+  final languageVersionViaRuntime = Platform.version.split(' ').first;
   final parser = Parser(StringSource(code, ''), errorListener,
-      featureSet: featureSet, lineInfo: LineInfo.fromContent(code));
+      featureSet: featureSet,
+      lineInfo: LineInfo.fromContent(code),
+      languageVersion: LibraryLanguageVersion(
+          package: Version.parse(languageVersionViaRuntime), override: null));
 
   final result = parse(parser, token);
 
