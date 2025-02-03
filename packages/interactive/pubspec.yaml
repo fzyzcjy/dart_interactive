@@ -14,7 +14,7 @@ dependencies:
   logging: ^1.1.0
   path: ^1.8.2
   pub_semver: ^2.1.5
-  vm_service: ">=9.0.0 <12.0.0"
+  vm_service: ">=9.0.0 <16.0.0"
 
 dev_dependencies:
   lint: ">=1.10.0 <3.0.0"
