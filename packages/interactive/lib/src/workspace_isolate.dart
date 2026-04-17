@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:isolate';
 
-import 'package:collection/collection.dart';
 import 'package:interactive/src/utils.dart';
 import 'package:interactive/src/vm_service_wrapper.dart';
 import 'package:interactive/src/workspace_file_tree.dart';
@@ -20,7 +19,9 @@ class WorkspaceIsolate {
   });
 
   static Future<WorkspaceIsolate> create(
-      VmServiceWrapper vm, WorkspaceFileTree workspaceFileTree) async {
+    VmServiceWrapper vm,
+    WorkspaceFileTree workspaceFileTree,
+  ) async {
     final isolateIdsBefore = await vm.getIsolateIds();
 
     // Run pub get so that the package_config.json is generated and packages
@@ -55,11 +56,8 @@ class WorkspaceIsolate {
 }
 
 extension on VmServiceWrapper {
-  Future<Set<String>> getIsolateIds() async => (await vmService.getVM())
-      .isolates!
-      .map((e) => e.id)
-      .whereNotNull()
-      .toSet();
+  Future<Set<String>> getIsolateIds() async =>
+      (await vmService.getVM()).isolates!.map((e) => e.id).nonNulls.toSet();
 }
 
 // ref: [Isolate.run]
@@ -107,6 +105,7 @@ Future<void> _runPubGet({required String workingDirectory}) async {
 
   if (code != 0) {
     throw Exception(
-        "pub get at '$workingDirectory' failed with exit code $code");
+      "pub get at '$workingDirectory' failed with exit code $code",
+    );
   }
 }
