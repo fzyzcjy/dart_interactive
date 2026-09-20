@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:logging/logging.dart';
 import 'package:vm_service/utils.dart';
 import 'package:vm_service/vm_service.dart';
@@ -12,16 +10,11 @@ class VmServiceWrapper {
     required this.vmService,
   });
 
-  static Future<VmServiceWrapper> create() async {
-    final serverUri = (await Service.getInfo()).serverUri;
-    if (serverUri == null) {
-      throw Exception('Cannot find serverUri for VmService. '
-          'Ensure you run like `dart run --enable-vm-service path/to/your/file.dart`');
-    }
-
+  static Future<VmServiceWrapper> create(Uri serverUri) async {
     final vmService = await vmServiceConnectUri(
-        convertToWebSocketUrl(serviceProtocolUrl: serverUri).toString(),
-        log: _Log());
+      convertToWebSocketUrl(serviceProtocolUrl: serverUri).toString(),
+      log: _Log(),
+    );
 
     return VmServiceWrapper._(vmService: vmService);
   }

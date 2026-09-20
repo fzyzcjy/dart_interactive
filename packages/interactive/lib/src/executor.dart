@@ -30,16 +30,14 @@ class Executor {
     // reset to avoid syntax error etc
     _writeWorkspaceCode(const WorkspaceCode.empty(), workspaceFileTree);
 
-    final vm = await VmServiceWrapper.create();
-    final workspaceIsolate =
-        await WorkspaceIsolate.create(vm, workspaceFileTree);
+    final workspaceIsolate = await WorkspaceIsolate.create(workspaceFileTree);
 
-    return Executor._(vm, workspaceIsolate, writer, workspaceFileTree);
+    return Executor._(
+        workspaceIsolate.vm, workspaceIsolate, writer, workspaceFileTree);
   }
 
   void dispose() {
     workspaceIsolate.dispose();
-    vm.dispose();
   }
 
   Future<void> execute(String rawInput) {
@@ -96,8 +94,13 @@ class Executor {
     log.info('Phase: Evaluate');
     final isolateInfo = await workspaceIsolate.isolateInfo;
     final targetId = isolateInfo.rootLib!.id!;
-    final response = await vm.vmService
-        .evaluate(workspaceIsolate.isolateId, targetId, _evaluateCode);
+    final Response response;
+    try {
+      response = await vm.vmService
+          .evaluate(workspaceIsolate.isolateId, targetId, _evaluateCode);
+    } on RPCError {
+      exit(await workspaceIsolate.process.exitCode);
+    }
     await _handleEvaluateResponse(response);
   }
 

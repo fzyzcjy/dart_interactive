@@ -11,6 +11,7 @@ import 'package:analyzer/diagnostic/diagnostic.dart';
 import 'package:analyzer/error/listener.dart';
 import 'package:analyzer/source/line_info.dart';
 import 'package:analyzer/src/dart/scanner/scanner.dart';
+import 'package:analyzer/src/error/listener.dart';
 import 'package:analyzer/src/generated/parser.dart';
 import 'package:analyzer/src/string_source.dart';
 import 'package:interactive/src/workspace_code.dart';
@@ -97,7 +98,7 @@ T? _tryParse<T extends AstNode>(String code, ParserClosure<T> parse) {
   final diagnosticsListener = _LoggingDiagnosticsListener();
   final reporter = DiagnosticReporter(diagnosticsListener, source);
   final featureSet = FeatureSet.latestLanguageVersion();
-  final scanner = Scanner(code, reporter)
+  final scanner = Scanner(inputText: code, reportError: reporter.report)
     ..configureFeatures(
         featureSetForOverriding: featureSet, featureSet: featureSet);
   final token = scanner.tokenize();

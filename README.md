@@ -108,10 +108,20 @@ We can also use all dependencies in the package as well, since the REPL code is 
 
 ## 🎼 Getting started
 
-Install (just standard procedure of installing global dart packages):
+### Run directly from pub.dev
+
+Run the REPL:
 
 ```shell
-dart pub global activate interactive
+dart run interactive@
+```
+
+### Install locally
+
+Install the REPL locally:
+
+```shell
+dart install interactive
 ```
 
 Use (just a normal binary):
