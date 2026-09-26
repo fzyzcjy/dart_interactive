@@ -97,6 +97,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "mit-mit",
+      "name": "Michael Thomsen",
+      "avatar_url": "https://avatars.githubusercontent.com/u/13644170?v=4",
+      "profile": "https://twitter.com/MiSvTh",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
