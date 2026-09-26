@@ -1,8 +1,8 @@
 ## 1.5.0
 
-* Support analyzer 13.3+ and 14+
-* Support installing with `dart install`.
-* Support running directly from pub (`dart run interactive@`)
+* Support analyzer 13.3+ and 14+ (thanks @mit-mit @sigurdm)
+* Support installing with `dart install` (thanks @mit-mit @sigurdm)
+* Support running directly from pub (`dart run interactive@`) (thanks @mit-mit @sigurdm)
 
 ## 1.4.1
 
