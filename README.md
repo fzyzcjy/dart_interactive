@@ -347,7 +347,7 @@ Currently, some user mistakes will produce `Hot reload failed` error instead of 
 ## ✨ Contributors
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-11-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-12-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
@@ -371,6 +371,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Chematronix"><img src="https://avatars.githubusercontent.com/u/6773039?v=4?s=100" width="100px;" alt="Chematronix"/><br /><sub><b>Chematronix</b></sub></a><br /><a href="https://github.com/fzyzcjy/dart_interactive/commits?author=Chematronix" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/jheld"><img src="https://avatars.githubusercontent.com/u/828813?v=4?s=100" width="100px;" alt="Jason Held"/><br /><sub><b>Jason Held</b></sub></a><br /><a href="https://github.com/fzyzcjy/dart_interactive/commits?author=jheld" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://twitter.com/MiSvTh"><img src="https://avatars.githubusercontent.com/u/13644170?v=4?s=100" width="100px;" alt="Michael Thomsen"/><br /><sub><b>Michael Thomsen</b></sub></a><br /><a href="https://github.com/fzyzcjy/dart_interactive/commits?author=mit-mit" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/sigurdm"><img src="https://avatars.githubusercontent.com/u/8613953?v=4?s=100" width="100px;" alt="Sigurd Meldgaard"/><br /><sub><b>Sigurd Meldgaard</b></sub></a><br /><a href="https://github.com/fzyzcjy/dart_interactive/commits?author=sigurdm" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
