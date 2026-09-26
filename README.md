@@ -390,3 +390,4 @@ More specifically, thanks for all these contributions:
 * [@Keithcat1](https://github.com/Keithcat1): Partially fix printing object.
 * [@sebthom](https://github.com/sebthom): Use unused TCP port.
 * [@arcanemachine](https://github.com/arcanemachine): Pin dependency.
+* [@mit-mit](https://github.com/mit-mit) and [@sigurdm](https://github.com/sigurdm): Update to support dart run @ and dart install.
